@@ -25,7 +25,6 @@ const checkRole = async (req, res, next) => {
     }else{
         next();
     }
-    next();
   } catch (error) {
     res.send(error);
   }

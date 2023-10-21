@@ -3,6 +3,7 @@ const { router } = require("./routes/authRoute");
 const { connection } = require("./config/db");
 const { requireSignin, checkRole } = require("./middlewares/atuhMiddleware");
 const cors = require("cors"); 
+const { categoryrouter } = require("./routes/catrgoryRoute");
 
 const app = express();
 require('dotenv').config();
@@ -16,6 +17,7 @@ app.use(
 const port = process.env.PORT; // Use uppercase PORT
 
 app.use("/api/", router);
+app.use("/api/category/",categoryrouter)
 
 app.get("/test", requireSignin, checkRole, (req, res) => {
   try {
