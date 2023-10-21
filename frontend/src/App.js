@@ -13,6 +13,8 @@ import Private from "./components/routes/Private";
 import Forgotpass from "./pages/Auth/Forgotpass";
 import Admin from "./components/routes/Admin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import CreateProduct from "./pages/admin/CreateProduct";
+import CreateCategory from "./pages/admin/CreateCategory";
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
             </Route>
             <Route path="/dashboard" element={<Admin />}>
               <Route path="admin" element={<AdminDashboard />}></Route>
+              <Route path="admin/create-product" element={<CreateProduct/>}></Route>
+              <Route path="admin/create-category" element={<CreateCategory/>}></Route>
             </Route>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<Register />} />
