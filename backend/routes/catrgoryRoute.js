@@ -4,6 +4,7 @@ const {
   createCategoryController,
   updatCategory,
   getCategory,
+  getSingleCategory,
 } = require("../controller/categoryController");
 
 const categoryrouter = express.Router();
@@ -16,6 +17,8 @@ categoryrouter.post(
 );
 
 categoryrouter.put("/update-category/:id", requireSignin, checkRole, updatCategory);
+
+categoryrouter.get("/single-category/:slug",getSingleCategory)
 
 categoryrouter.get("/all",getCategory)
 

@@ -71,8 +71,27 @@ const getCategory=async(req,res)=>{
     }
 }
 
+const getSingleCategory=async(req,res)=>{
+    try {
+        const {slug}=req.params;
+        const findCategory=await categoryModel.findOne({slug});
+        console.log(slug)
+        res.status(200).send({
+            message:"Category in console",
+            ctegory:findCategory
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+            message: "Error in getting single category",
+          });
+    }
+}
+
 module.exports = {
   createCategoryController,
   updatCategory,
-  getCategory
+  getCategory,
+  getSingleCategory
 };
