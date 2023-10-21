@@ -13,7 +13,7 @@ const AdminDashboard = () => {
              <AdminMenu/>
           </div>
           <div className='col-md-9'>
-            <div className="card w-75 " style={{marginTop:'4%'}}>
+            <div className="card w-75 " style={{marginTop:'4%', padding:"20px"}}>
               <h4> Name : {auth?.user?.name}</h4>
               <h4> e-mail : {auth?.user?.email}</h4>
               <h4> contact : {auth?.user?.phone}</h4>
