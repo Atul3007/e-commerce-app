@@ -18,19 +18,18 @@ const productSchema = mongoose.Schema({
     required: true,
   },
   category:{
-    type:mongoose.ObjectId,
+    type:mongoose.Schema.Types.ObjectId,
     ref:'category',
     required:true
   },
   photo:{
     data:Buffer,
-    required:true,
     contentType:String
   },
   shipping:{
     type:Boolean
   }
-},{timestamp:true});
+},{timestamps:true});
 
 const productModel = mongoose.model("products", productSchema);
 
