@@ -21,8 +21,16 @@ const productSchema = mongoose.Schema({
     type:mongoose.ObjectId,
     ref:'category',
     required:true
+  },
+  photo:{
+    data:Buffer,
+    required:true,
+    contentType:String
+  },
+  shipping:{
+    type:Boolean
   }
-});
+},{timestamp:true});
 
 const productModel = mongoose.model("products", productSchema);
 
