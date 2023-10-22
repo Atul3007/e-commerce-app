@@ -5,6 +5,7 @@ const {
   updatCategory,
   getCategory,
   getSingleCategory,
+  deleteCategory,
 } = require("../controller/categoryController");
 
 const categoryrouter = express.Router();
@@ -21,6 +22,8 @@ categoryrouter.put("/update-category/:id", requireSignin, checkRole, updatCatego
 categoryrouter.get("/single-category/:slug",getSingleCategory)
 
 categoryrouter.get("/all",getCategory)
+
+categoryrouter.delete("/delete-category/:id",deleteCategory)
 
 module.exports = {
   categoryrouter,

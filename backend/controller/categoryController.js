@@ -89,9 +89,26 @@ const getSingleCategory=async(req,res)=>{
     }
 }
 
+const deleteCategory=async (req,res)=>{
+    try {
+        const {id}=req.params;
+        const deleteCat=await categoryModel.findByIdAndDelete(id);
+        res.status(200).send({
+            message:"category deleted successfully!!"
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+            message: "Error in deleting category",
+          });
+    }
+}
+
 module.exports = {
   createCategoryController,
   updatCategory,
   getCategory,
-  getSingleCategory
+  getSingleCategory,
+  deleteCategory
 };

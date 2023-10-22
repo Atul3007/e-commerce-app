@@ -5,7 +5,7 @@ let user_id;
 const requireSignin = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY,{expiresIn:'500s'});
     if (decoded) {
        user_id = decoded.id;
        next();
