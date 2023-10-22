@@ -4,6 +4,7 @@ const { connection } = require("./config/db");
 const { requireSignin, checkRole } = require("./middlewares/atuhMiddleware");
 const cors = require("cors"); 
 const { categoryrouter } = require("./routes/catrgoryRoute");
+const { productRouter } = require("./routes/productRoute");
 
 const app = express();
 require('dotenv').config();
@@ -18,6 +19,7 @@ const port = process.env.PORT; // Use uppercase PORT
 
 app.use("/api/", router);
 app.use("/api/category/",categoryrouter)
+app.use("/api/product/",productRouter)
 
 app.get("/test", requireSignin, checkRole, (req, res) => {
   try {
