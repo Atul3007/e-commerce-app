@@ -95,6 +95,7 @@ const getProductPhoto = async (req, res) => {
   try {
     const id = req.params.pid;
     const ProductPhoto = await productModel.findById(id).select("photo");
+   // console.log(ProductPhoto.photo.data)
     if(ProductPhoto.photo.data){
         res.set('Content-type',ProductPhoto.photo.contentType);
         return res.status(200).send(ProductPhoto.photo.data)
@@ -110,9 +111,27 @@ const getProductPhoto = async (req, res) => {
   }
 };
 
+const deleteProduct=async(req,res)=>{
+    try {
+        const id=req.params.pid;
+        const deleteProduct=await productModel.findByIdAndDelete(id);
+        res.status(200).send({
+            success: true,
+            message: "Product deleted successfully",
+          });
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+            message: "Error in deleting product",
+          }); 
+    }
+}
+
 module.exports = {
   createProduct,
   getProduct,
   getSingleProduct,
   getProductPhoto,
+  deleteProduct
 };
