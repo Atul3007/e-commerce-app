@@ -1,5 +1,5 @@
 const express=require("express");
-const { createProduct, getProduct } = require("../controller/productController");
+const { createProduct, getProduct, getSingleProduct, getProductPhoto } = require("../controller/productController");
 const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const productRouter=express.Router();
 const formidableMiddleware = require('express-formidable');
@@ -7,6 +7,10 @@ const formidableMiddleware = require('express-formidable');
 productRouter.post("/create-product",requireSignin,checkRole,formidableMiddleware(),createProduct)
 
 productRouter.get("/get-product",getProduct)
+
+productRouter.get("/get-single-product/:slug",getSingleProduct)
+
+productRouter.get("/product-photo/:pid",getProductPhoto)
 
 module.exports={
     productRouter

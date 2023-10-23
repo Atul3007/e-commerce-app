@@ -42,11 +42,16 @@ const createProduct = async (req, res) => {
 
 const getProduct = async (req, res) => {
   try {
-    const product = await productModel.find({}).select("-photo").limit(10).sort({createdAt:-1});
+    const product = await productModel
+      .find({})
+      .select("-photo")
+      .populate("category")
+      .limit(10)
+      .sort({ createdAt: -1 });
     res.status(200).send({
-        success: true,
-        message: product,
-        total_count : product.length
+      success: true,
+      message: product,
+      total_count: product.length,
     });
   } catch (error) {
     res.status(400).send({
@@ -57,7 +62,57 @@ const getProduct = async (req, res) => {
   }
 };
 
+const getSingleProduct = async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const product = await productModel
+      .findOne({ slug })
+      .select("-photo")
+      .populate("category");
+    if (!product) {
+      res.status(401).send({
+        success: false,
+        error: error.message,
+        message: "product not exist",
+      });
+      return;
+    } else {
+      res.status(200).send({
+        success: true,
+        message: product,
+      });
+    }
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting single product",
+    });
+  }
+};
+
+const getProductPhoto = async (req, res) => {
+  try {
+    const id = req.params.pid;
+    const ProductPhoto = await productModel.findById(id).select("photo");
+    if(ProductPhoto.photo.data){
+        res.set('Content-type',ProductPhoto.photo.contentType);
+        return res.status(200).send(ProductPhoto.photo.data)
+    }else{
+      console.log("error")
+    }
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting product photo",
+    });
+  }
+};
+
 module.exports = {
   createProduct,
   getProduct,
+  getSingleProduct,
+  getProductPhoto,
 };
