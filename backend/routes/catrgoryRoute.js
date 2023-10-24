@@ -11,7 +11,7 @@ const {
 const categoryrouter = express.Router();
 
 categoryrouter.post(
-  "/create-category",
+ "/create-category",
   requireSignin,
   checkRole,
   createCategoryController

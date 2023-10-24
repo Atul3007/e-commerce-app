@@ -52,7 +52,7 @@ const CreateCategory = () => {
             >
               <h4> Manage Category</h4>
               <div className="p3">
-                <CategoryForm />
+                <CategoryForm handleSubmit={handleSubmit} value={name} setValue={setName}/>
               </div>
               <div>
                 <table className="table">
