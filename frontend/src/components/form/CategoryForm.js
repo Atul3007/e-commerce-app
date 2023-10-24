@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const CategoryForm = ({handleSubmit,value,setValue}) => {
  
@@ -8,7 +8,7 @@ const CategoryForm = ({handleSubmit,value,setValue}) => {
         <div className="mb-3">
           <input
             type="text"
-            className="form-control"
+            className="form-control" 
             placeholder="enter new category"
             value={value}
             onChange={(e) => setValue(e.target.value)}

@@ -4,22 +4,40 @@ import AdminMenu from "../../components/layouts/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import CategoryForm from "./../../components/form/CategoryForm";
+import { useAuth } from "../../context/Auth";
 
 const CreateCategory = () => {
   const [category, setCategory] = useState([]);
   const [name, setName] = useState("");
-  const handleSubmit= async (e)=>{
+  const [auth,setAuth] = useAuth();
+
+  const config = {
+    headers: {
+      'Authorization': auth?.token, // Include your authorization token
+      'Content-Type': 'application/json', // Specify the content type
+    },
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data}=await axios.post("http://localhost:8000/api/category/create-category",{name})
-      if(data.success){
-        toast.success(`Successfully ${data.name} is created!!!`)
+      const { data } = await axios.post(
+        "http://localhost:8000/api/category/create-category",
+        {name },
+        config
+      );
+      
+      if (data.success) {
+        toast.success(`Successfully ${data.name} is created!!!`);
+      } else {
+        toast.error("Something went wrong");
       }
     } catch (error) {
-      console.log(error)
-      toast.error("Someting went wrong in input form")
+      console.log(error);
+      toast.error("Something went wrong in the input form");
     }
-  }
+  };
+  
 
   const getAllCategory = async () => {
     try {

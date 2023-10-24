@@ -4,7 +4,7 @@ const { categoryModel } = require("../models/categoryModel");
 const createCategoryController = async (req, res) => {
   try {
     const { name } = req.body;
-
+    console.log(name)
     if (!name) {
       res.status(400).send({ message: "Please enter the category name" });
       return; // Exit the function to prevent further response attempts

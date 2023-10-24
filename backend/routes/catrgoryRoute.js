@@ -15,7 +15,7 @@ categoryrouter.post(
   requireSignin,
   checkRole,
   createCategoryController
-);
+);  
 
 categoryrouter.put("/update-category/:id", requireSignin, checkRole, updatCategory);
 
