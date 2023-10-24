@@ -40,6 +40,45 @@ const createProduct = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+    try {
+      const id=req.params.pid;  
+      const { name, slug, description, price, category, shipping } = req.fields;
+      const { photo } = req.files;
+      if (
+        !name ||
+        !description ||
+        !price ||
+        !category ||
+        !shipping ||
+        !photo ||
+        photo.size > 1000000
+      ) {
+        return res.status(400).send({
+          message: "all fields required and pic size should be less than 1mb",
+        });
+      }
+      const product = new productModel.findByIdAndUpdate(id,{...req.fields, slug: slugify(name)})
+      if (photo) {
+        product.photo.data = fs.readFileSync(photo.path);
+        product.contentType = photo.type;
+      }
+      await product.save();
+  
+      res.status(201).json({
+        success: true,
+        message: "Product updated successfully",
+        product,
+      });
+    } catch (error) {
+      res.status(400).send({
+        success: false,
+        error: error.message,
+        message: "Error in updating product",
+      });
+    }
+  };
+
 const getProduct = async (req, res) => {
   try {
     const product = await productModel
@@ -114,7 +153,7 @@ const getProductPhoto = async (req, res) => {
 const deleteProduct=async(req,res)=>{
     try {
         const id=req.params.pid;
-        const deleteProduct=await productModel.findByIdAndDelete(id);
+        const deleteProduct=await productModel.findByIdAndDelete(id).select("-photo");
         res.status(200).send({
             success: true,
             message: "Product deleted successfully",
@@ -130,6 +169,7 @@ const deleteProduct=async(req,res)=>{
 
 module.exports = {
   createProduct,
+  updateProduct,
   getProduct,
   getSingleProduct,
   getProductPhoto,

@@ -1,10 +1,12 @@
 const express=require("express");
-const { createProduct, getProduct, getSingleProduct, getProductPhoto, deleteProduct } = require("../controller/productController");
+const { createProduct, getProduct, getSingleProduct, getProductPhoto, deleteProduct, updateProduct } = require("../controller/productController");
 const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const productRouter=express.Router();
 const formidableMiddleware = require('express-formidable');
 
 productRouter.post("/create-product",requireSignin,checkRole,formidableMiddleware(),createProduct)
+
+productRouter.post("/update-product/:pid",requireSignin,checkRole,formidableMiddleware(),updateProduct)
 
 productRouter.get("/get-product",getProduct)
 
