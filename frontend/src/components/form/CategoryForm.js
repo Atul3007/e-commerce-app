@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
-const CategoryForm = () => {
-  const [value, setValue] = useEffect("");
+const CategoryForm = ({handleSubmit,value,setValue}) => {
+ 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <input
             type="text"
