@@ -26,7 +26,7 @@ const createCategoryController = async (req, res) => {
     res.status(201).send({
       message: "Category added successfully",
       success: true,
-      data: category,
+      data: category, 
     });
   } catch (error) {
     res.status(500).send({
@@ -58,9 +58,10 @@ const updatCategory = async (req, res) => {
 const getCategory=async(req,res)=>{
     try {
         const category=await categoryModel.find({});
-        console.log(category)
+       // console.log(category)
         res.status(200).send({
-            message:"Category in console"
+            message:"Category in console",
+            data:category
         })
     } catch (error) {
         res.status(400).send({

@@ -58,7 +58,7 @@ const updateProduct = async (req, res) => {
           message: "all fields required and pic size should be less than 1mb",
         });
       }
-      const product = new productModel.findByIdAndUpdate(id,{...req.fields, slug: slugify(name)})
+      const product =await productModel.findByIdAndUpdate(id,{...req.fields, slug: slugify(name)})  
       if (photo) {
         product.photo.data = fs.readFileSync(photo.path);
         product.contentType = photo.type;
