@@ -10,8 +10,10 @@ import { Modal } from "antd";
 const CreateCategory = () => {
   const [category, setCategory] = useState([]);
   const [name, setName] = useState("");
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [updatedName, setUpdatedName] = useState("");
 
   const config = {
     headers: {
@@ -28,7 +30,7 @@ const CreateCategory = () => {
         { name },
         config
       );
-
+      console.log(data);
       if (data.success) {
         toast.success(`Successfully ${name} is created!!!`);
         getAllCategory();
@@ -41,12 +43,35 @@ const CreateCategory = () => {
     }
   };
 
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.put(
+        `http://localhost:8000/api/category/update-category/${selected._id}`,
+        { name:updatedName },
+        config
+      );
+
+      if (data) {
+        toast.success(`Successfully ${name} is updated!!!`);
+        getAllCategory();
+        setUpdatedName("");
+        setVisible(false);
+        setSelected(null);
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong in the updating form");
+    }
+  };
+
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
         "http://localhost:8000/api/category/all"
       );
-      console.log(data);
       setCategory(data.data);
     } catch (error) {
       console.log(error);
@@ -94,7 +119,11 @@ const CreateCategory = () => {
                           <td>
                             <button
                               className="btn btn-primary ms-2"
-                              onClick={() => setVisible(true)}
+                              onClick={() => {
+                                setVisible(true),
+                                  setUpdatedName(e.name),
+                                  setSelected(e);
+                              }}
                             >
                               Edit
                             </button>
@@ -115,7 +144,11 @@ const CreateCategory = () => {
             footer={null}
             visible={visible}
           >
-            <CategoryForm />
+            <CategoryForm
+              handleSubmit={handleUpdateSubmit}
+              value={updatedName}
+              setValue={setUpdatedName}
+            />
           </Modal>
         </div>
       </div>

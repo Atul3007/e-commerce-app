@@ -20,7 +20,7 @@ categoryrouter.post(
 categoryrouter.put("/update-category/:id", requireSignin, checkRole, updatCategory);
 
 categoryrouter.get("/single-category/:slug",getSingleCategory)
-
+ 
 categoryrouter.get("/all",getCategory)
 
 categoryrouter.delete("/delete-category/:id",deleteCategory)
