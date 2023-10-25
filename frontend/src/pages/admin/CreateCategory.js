@@ -5,16 +5,18 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import CategoryForm from "./../../components/form/CategoryForm";
 import { useAuth } from "../../context/Auth";
+import { Modal } from "antd";
 
 const CreateCategory = () => {
   const [category, setCategory] = useState([]);
   const [name, setName] = useState("");
-  const [auth,setAuth] = useAuth();
+  const [auth, setAuth] = useAuth();
+  const [visible, setVisible] = useState(false);
 
   const config = {
     headers: {
-      'Authorization': auth?.token, // Include your authorization token
-      'Content-Type': 'application/json', // Specify the content type
+      Authorization: auth?.token, // Include your authorization token
+      "Content-Type": "application/json", // Specify the content type
     },
   };
 
@@ -23,10 +25,10 @@ const CreateCategory = () => {
     try {
       const { data } = await axios.post(
         "http://localhost:8000/api/category/create-category",
-        {name },
+        { name },
         config
       );
-      
+
       if (data.success) {
         toast.success(`Successfully ${name} is created!!!`);
         getAllCategory();
@@ -38,7 +40,6 @@ const CreateCategory = () => {
       toast.error("Something went wrong in the input form");
     }
   };
-  
 
   const getAllCategory = async () => {
     try {
@@ -71,7 +72,11 @@ const CreateCategory = () => {
             >
               <h4> Manage Category</h4>
               <div className="p3">
-                <CategoryForm handleSubmit={handleSubmit} value={name} setValue={setName}/>
+                <CategoryForm
+                  handleSubmit={handleSubmit}
+                  value={name}
+                  setValue={setName}
+                />
               </div>
               <div>
                 <table className="table">
@@ -87,8 +92,15 @@ const CreateCategory = () => {
                         <tr>
                           <td key={e.id}> {e.name} </td>
                           <td>
-                            <button className="btn btn-primary ms-2">Edit</button>
-                            <button className="btn btn-danger ms-2">Delete</button>
+                            <button
+                              className="btn btn-primary ms-2"
+                              onClick={() => setVisible(true)}
+                            >
+                              Edit
+                            </button>
+                            <button className="btn btn-danger ms-2">
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       </>
@@ -98,6 +110,13 @@ const CreateCategory = () => {
               </div>
             </div>
           </div>
+          <Modal
+            onCancel={() => setVisible(false)}
+            footer={null}
+            visible={visible}
+          >
+            <CategoryForm />
+          </Modal>
         </div>
       </div>
     </Layout>
