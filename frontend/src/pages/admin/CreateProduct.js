@@ -13,6 +13,8 @@ const CreateProduct = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [shipping, setShipping] = useState("");
+  const [name,setName] = useState("");
+  const [quantity,setQuantity] = useState("");
 
   const getAllCategory = async () => {
     try {
@@ -43,7 +45,7 @@ const CreateProduct = () => {
               style={{ marginTop: "4%", padding: "20px" }}
             >
               <h4> CreateProducts</h4>
-              <div className="m-1 w-75">
+              <div className="m-1 w-100">
                 <Select
                   bordered={false}
                   placeholder="select a category"
@@ -91,7 +93,52 @@ const CreateProduct = () => {
                   value={name}
                   placeholder="Enter product name"
                   className="form-control"
+                  onChange={(e)=>setName(e.target.value)}
                 />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={description}
+                  placeholder="Enter description of product"
+                  className="form-control"
+                  onChange={(e)=>setDescription(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="number"
+                  value={price}
+                  placeholder="Enter price"
+                  className="form-control"
+                  onChange={(e)=>setPrice(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="Number"
+                  value={quantity}
+                  placeholder="Enter quantity"
+                  className="form-control"
+                  onChange={(e)=>setQuantity(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <select
+                  type="text"
+                  bordered={false}
+                  size={"large"}
+                  showSearch
+                  value={shipping}
+                  className="form-control"
+                  onChange={(value)=>setShipping(value)}
+                >
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <button className="btn btn-primary" onClick={handleCreate}>Create Product</button>
               </div>
             </div>
           </div>
