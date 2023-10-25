@@ -13,8 +13,24 @@ const CreateProduct = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [shipping, setShipping] = useState("");
-  const [name,setName] = useState("");
-  const [quantity,setQuantity] = useState("");
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+
+  const handleCreate = async () => {
+    try {
+      console.log({
+        price,
+        description,
+        price,
+        name,
+        quantity,
+        category,
+        shipping,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getAllCategory = async () => {
     try {
@@ -93,7 +109,7 @@ const CreateProduct = () => {
                   value={name}
                   placeholder="Enter product name"
                   className="form-control"
-                  onChange={(e)=>setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="mb-3">
@@ -102,7 +118,7 @@ const CreateProduct = () => {
                   value={description}
                   placeholder="Enter description of product"
                   className="form-control"
-                  onChange={(e)=>setDescription(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div className="mb-3">
@@ -111,7 +127,7 @@ const CreateProduct = () => {
                   value={price}
                   placeholder="Enter price"
                   className="form-control"
-                  onChange={(e)=>setPrice(e.target.value)}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
               <div className="mb-3">
@@ -120,25 +136,25 @@ const CreateProduct = () => {
                   value={quantity}
                   placeholder="Enter quantity"
                   className="form-control"
-                  onChange={(e)=>setQuantity(e.target.value)}
+                  onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <select
-                  type="text"
+                <Select
                   bordered={false}
-                  size={"large"}
-                  showSearch
-                  value={shipping}
-                  className="form-control"
-                  onChange={(value)=>setShipping(value)}
+                  placeholder="Shipping"
+                  size="large"
+                  className="form-select mb-3"
+                  onChange={setShipping}
                 >
-                  <option value="1">Yes</option>
-                  <option value="0">No</option>
-                </select>
+                  <Option value="1">Yes</Option>
+                  <Option value="0">No</Option>
+                </Select>
               </div>
               <div className="mb-3">
-                <button className="btn btn-primary" onClick={handleCreate}>Create Product</button>
+                <button className="btn btn-primary" onClick={handleCreate}>
+                  Create Product
+                </button>
               </div>
             </div>
           </div>
