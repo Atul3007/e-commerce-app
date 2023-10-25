@@ -16,7 +16,8 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
 
-  const handleCreate = async () => {
+  const handleCreate = async (e) => {
+    e.preventDefault();
     try {
       console.log({
         price,
@@ -27,8 +28,12 @@ const CreateProduct = () => {
         category,
         shipping,
       });
+
+    const {data}=axios.post("http://localhost:8000/api/category/create-product")
+
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong")
     }
   };
 
