@@ -1,8 +1,10 @@
 import React from "react";
 import AdminMenu from "./../../components/layouts/AdminMenu";
+import Layout from "../../components/layouts/Layout";
 
 const Product = () => {
   return (
+    <Layout>
     <div>
       <div className="row">
         <div className="col-md-3">
@@ -13,6 +15,7 @@ const Product = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 
