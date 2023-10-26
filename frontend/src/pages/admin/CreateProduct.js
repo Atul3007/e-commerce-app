@@ -16,7 +16,7 @@ const CreateProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [photo, setPhoto] = useState("");
   const [auth] = useAuth();
-  const [shipping,setShipping]=useState("")
+  const [shipping,setShipping]=useState("");
 
   const config = {
     headers: {
@@ -59,7 +59,7 @@ const CreateProduct = () => {
         productData,
         config
       );
-
+console.log(response.status)
       if (response.status === 201) {
         toast.success("Product Created Successfully");
       } else {

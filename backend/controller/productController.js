@@ -6,6 +6,7 @@ const createProduct = async (req, res) => {
   try {
     const { name, slug, description, price, category, shipping,quantity } = req.fields;
     const { photo } = req.files;  
+   // console.log(req.files,req.fields)
     if (
       !name ||
       !description ||
