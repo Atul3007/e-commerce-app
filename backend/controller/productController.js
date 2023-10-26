@@ -6,6 +6,7 @@ const createProduct = async (req, res) => {
   try {
     const { name, slug, description, price, category, shipping } = req.fields;
     const { photo } = req.files;
+    console.log(req.fields,req.files)
     if (
       !name ||
       !description ||
@@ -17,12 +18,12 @@ const createProduct = async (req, res) => {
     ) {
       return res.status(400).send({
         message: "all fields required and pic size should be less than 1mb",
-      });
+      }); 
     }
     const product = new productModel({ ...req.fields, slug: slugify(name) });
     if (photo) {
       product.photo.data = fs.readFileSync(photo.path);
-      product.contentType = photo.type;
+      product.photo.contentType = photo.type;
     }
     await product.save();
 

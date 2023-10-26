@@ -16,7 +16,7 @@ const CreateProduct = () => {
   const [shipping, setShipping] = useState("");
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [auth]=useAuth();
+  const [auth] = useAuth();
 
   const config = {
     headers: {
@@ -28,25 +28,26 @@ const CreateProduct = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      const obj = {
-        price,
-        description,
-        price,
-        name,
-        quantity,
-        category,
-        shipping,
-        photo,
-      };
+      const productData = new FormData();
+      productData.append("name", name);
+      productData.append("description", description);
+      productData.append("photo",photo);
+      productData.append("price", price);
+      productData.append("category", category);
+      productData.append("shipping", shipping);
 
-      const { data } = axios.post(
-        "http://localhost:8000/api/category/create-product",
-        obj,
+console.log("mai try me hu")
+
+       await axios.post(
+        "http://localhost:8000/api/product/create-product",
+        productData,
         config
       );
-      if (data) {
+      console.log(data)
+      if (product.success) {
         alert("laudey lg gaye");
       }
+      console.log("mai abhi bhi try me hu")
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
