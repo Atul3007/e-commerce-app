@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useAuth } from "../../context/Auth";
+import { Navigate } from "react-router-dom";
 const { Option } = Select;
 
 const CreateProduct = () => {
@@ -53,17 +54,19 @@ const CreateProduct = () => {
       productData.append("quantity", quantity);
       productData.append("photo", photo);
       productData.append("category", category);
+      productData.append("shipping",shipping)
 
       const response = await axios.post(
         "http://localhost:8000/api/product/create-product",
         productData,
         config
       );
-console.log(response.status)
+
       if (response.status === 201) {
         toast.success("Product Created Successfully");
+        Navigate("/dashboard/admin/products")
       } else {
-        toast.error("Failed to create the product"); 
+        toast.error("Failed to create the product");
       }
     } catch (error) {
       console.error(error);
