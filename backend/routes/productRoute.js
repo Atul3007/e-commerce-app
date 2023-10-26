@@ -6,7 +6,7 @@ const formidableMiddleware = require('express-formidable');
 
 productRouter.post("/create-product",requireSignin,checkRole,formidableMiddleware(),createProduct)
 
-productRouter.post("/update-product/:pid",requireSignin,checkRole,formidableMiddleware(),updateProduct)
+productRouter.put("/update-product/:pid",requireSignin,checkRole,formidableMiddleware(),updateProduct)
 
 productRouter.get("/get-product",getProduct)
 

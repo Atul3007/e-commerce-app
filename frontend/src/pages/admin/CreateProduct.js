@@ -20,8 +20,8 @@ const CreateProduct = () => {
 
   const config = {
     headers: {
-      Authorization: auth?.token, // Include your authorization token
-      "Content-Type": "application/json", // Specify the content type
+      Authorization: auth?.token, 
+      "Content-Type": "application/json",
     },
   };
 
@@ -32,21 +32,23 @@ const CreateProduct = () => {
       productData.append("name", name);
       productData.append("description", description);
       productData.append("photo",photo);
-      productData.append("price", price);
+      productData.append("price", +price);
       productData.append("category", category);
       productData.append("shipping", shipping);
+      productData.append("quantity",+quantity)
 
-console.log("mai try me hu")
-
-       await axios.post(
+      const {data} = await axios.post(
         "http://localhost:8000/api/product/create-product",
         productData,
         config
       );
-      console.log(data)
-      if (product.success) {
-        alert("laudey lg gaye");
+     
+      if (data.success) {   
+        alert("Product created successfully");
+      } else {
+        alert("Failed to create the product");
       }
+      
       console.log("mai abhi bhi try me hu")
     } catch (error) {
       console.log(error);
