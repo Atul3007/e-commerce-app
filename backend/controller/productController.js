@@ -22,7 +22,7 @@ const createProduct = async (req, res) => {
     const product = new productModel({ ...req.fields, slug: slugify(name) });
     if (photo) {
       product.photo.data = fs.readFileSync(photo.path);
-      product.photo.contentType = photo.type;
+      product.photo.contentType = photo.type; 
     }
     await product.save();
 
