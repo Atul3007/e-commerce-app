@@ -30,7 +30,7 @@ const CreateCategory = () => {
         { name },
         config
       );
-      console.log(data);
+     // console.log(data);
       if (data.success) {
         toast.success(`Successfully ${name} is created!!!`);
         getAllCategory();

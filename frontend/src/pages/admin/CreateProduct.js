@@ -4,6 +4,7 @@ import AdminMenu from "../../components/layouts/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
+import { useAuth } from "../../context/Auth";
 const { Option } = Select;
 
 const CreateProduct = () => {
@@ -15,11 +16,19 @@ const CreateProduct = () => {
   const [shipping, setShipping] = useState("");
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [auth]=useAuth();
+
+  const config = {
+    headers: {
+      Authorization: auth?.token, // Include your authorization token
+      "Content-Type": "application/json", // Specify the content type
+    },
+  };
 
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      console.log({
+      const obj = {
         price,
         description,
         price,
@@ -27,13 +36,20 @@ const CreateProduct = () => {
         quantity,
         category,
         shipping,
-      });
+        photo,
+      };
 
-    const {data}=axios.post("http://localhost:8000/api/category/create-product")
-
+      const { data } = axios.post(
+        "http://localhost:8000/api/category/create-product",
+        obj,
+        config
+      );
+      if (data) {
+        alert("laudey lg gaye");
+      }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong")
+      toast.error("Something went wrong");
     }
   };
 
@@ -78,7 +94,7 @@ const CreateProduct = () => {
                   }}
                 >
                   {categories?.map((c) => (
-                    <Option key={c.id} value={c.name}>
+                    <Option key={c.id} value={c._id}>
                       {c.name}
                     </Option>
                   ))}
@@ -152,8 +168,8 @@ const CreateProduct = () => {
                   className="form-select mb-3"
                   onChange={setShipping}
                 >
-                  <Option value="1">Yes</Option>
-                  <Option value="0">No</Option>
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
                 </Select>
               </div>
               <div className="mb-3">
