@@ -4,7 +4,7 @@ const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const productRouter=express.Router();
 const formidableMiddleware = require('express-formidable');
 
-productRouter.post("/create-product",requireSignin,checkRole,formidableMiddleware(),createProduct)
+productRouter.post("/create-product",formidableMiddleware(),createProduct)
 
 productRouter.put("/update-product/:pid",requireSignin,checkRole,formidableMiddleware(),updateProduct)
 

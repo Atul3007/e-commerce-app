@@ -5,8 +5,7 @@ const fs = require("fs");
 const createProduct = async (req, res) => {
   try {
     const { name, slug, description, price, category, shipping,quantity } = req.fields;
-    const { photo } = req.files;
-    console.log(req.fields,req.files)
+    const { photo } = req.files;  
     if (
       !name ||
       !description ||
