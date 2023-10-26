@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useAuth } from "../../context/Auth";
-import { Navigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 const { Option } = Select;
 
 const CreateProduct = () => {
@@ -18,6 +18,8 @@ const CreateProduct = () => {
   const [photo, setPhoto] = useState("");
   const [auth] = useAuth();
   const [shipping,setShipping]=useState("");
+
+  const navigate=useNavigate();
 
   const config = {
     headers: {
@@ -64,7 +66,7 @@ const CreateProduct = () => {
 
       if (response.status === 201) {
         toast.success("Product Created Successfully");
-        Navigate("/dashboard/admin/products")
+        navigate("/dashboard/admin/product")
       } else {
         toast.error("Failed to create the product");
       }
