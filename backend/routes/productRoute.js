@@ -17,5 +17,5 @@ productRouter.get("/product-photo/:pid",getProductPhoto)
 productRouter.delete("/delete-product/:pid",deleteProduct)
 
 module.exports={
-    productRouter
+    productRouter 
 }

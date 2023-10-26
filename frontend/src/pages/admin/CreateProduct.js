@@ -16,7 +16,7 @@ const CreateProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [photo, setPhoto] = useState("");
   const [auth] = useAuth();
-  const [shipping,setShipping]=useState("");
+  const [shipping,setShipping]=useState("")
 
   const config = {
     headers: {
