@@ -43,7 +43,7 @@ const UpdateProducts = () => {
       setPrice(res.data.message.price);
       setQuantity(res.data.message.quantity)
       setShipping(res.data.message.shipping);
-      setCategory(res.data.message.category.name)
+      setCategory(res.data.message.category._id)
 
      //console.log(res.data.message)
     } catch (error) {
@@ -92,7 +92,7 @@ const UpdateProducts = () => {
       productData.append("shipping", shipping);
 
       const response = await axios.put(
-        `http://localhost:8000/api/product/upate-product/${id}`,
+        `http://localhost:8000/api/product/update-product/${id}`,
         productData,
         config
       );
@@ -217,7 +217,7 @@ const UpdateProducts = () => {
                     onChange={(value) => {
                       setShipping(value);
                     }}
-                    value={shipping?"Yes":"No"}
+                   
                   >
                     <Option value="0">No</Option>
                     <Option value="1">Yes</Option>

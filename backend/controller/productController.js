@@ -44,14 +44,16 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
       const id=req.params.pid;  
-      const { name, slug, description, price, category, shipping } = req.fields;
+      const { name, slug, description, price, category, shipping,quantity} = req.fields;
       const { photo } = req.files;
+      console.log(id,name,photo)
       if (
         !name ||
         !description ||
         !price ||
         !category ||
         !shipping ||
+        !quantity ||
         !photo ||
         photo.size > 1000000
       ) {
