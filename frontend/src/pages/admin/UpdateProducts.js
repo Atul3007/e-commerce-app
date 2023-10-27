@@ -9,7 +9,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 const { Option } = Select;
 
 const UpdateProducts = () => {
-  const [categories, setCategories] = useState("");
+  const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -18,6 +18,7 @@ const UpdateProducts = () => {
   const [photo, setPhoto] = useState("");
   const [shipping,setShipping]=useState("");
   const [auth] = useAuth();
+  const [id,setId]=useState("");
 
   const navigate = useNavigate();
 
@@ -37,6 +38,7 @@ const UpdateProducts = () => {
         `http://localhost:8000/api/product/get-single-product/${slug}`
       );
       setName(res.data.message.name);
+      setId(res.data.message._id);
       setDescription(res.data.message.description);
       setPrice(res.data.message.price);
       setQuantity(res.data.message.quantity)
@@ -55,14 +57,14 @@ const UpdateProducts = () => {
   }, []);
 
 
-  const getCategory = async () => {
+  const getAllCategory = async () => {
     try {
       const {data} = await axios.get(
         "http://localhost:8000/api/category/all"
       );
       if (data) {
         setCategories(data?.data);
-        console.log(data?.data);
+       // console.log(data?.data);
       } else {
         console.log("Error in getting category");
       }
@@ -73,11 +75,11 @@ const UpdateProducts = () => {
   };
 
   useEffect(() => {
-    getCategory();
+    getAllCategory();
   }, []);
 
   // Create product function
-  const handleCreate = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
@@ -85,21 +87,21 @@ const UpdateProducts = () => {
       productData.append("description", description);
       productData.append("price", price);
       productData.append("quantity", quantity);
-      productData.append("photo", photo);
+      photo && productData.append("photo", photo);
       productData.append("category", category);
       productData.append("shipping", shipping);
 
       const response = await axios.put(
-        `http://localhost:8000/api/product/upate-product${pid}`,
+        `http://localhost:8000/api/product/upate-product/${id}`,
         productData,
         config
       );
 
       if (response.status === 201) {
-        toast.success("Product Created Successfully");
+        toast.success("Product Updated Successfully");
         navigate("/dashboard/admin/product");
       } else {
-        toast.error("Failed to create the product");
+        toast.error("Failed to update the product");
       }
     } catch (error) {
       console.error(error);
@@ -108,7 +110,7 @@ const UpdateProducts = () => {
   };
 
   return (
-    <Layout title={"Dashboard - Create Product"}>
+    <Layout title={"Dashboard - Update Product"}>
       <div className="container-fluid m-3 p-3">
         <div className="row">
           <div className="col-md-3">
@@ -116,7 +118,7 @@ const UpdateProducts = () => {
           </div>
           <div className="col-md-9">
             <h1>Update Product</h1>
-            <form onSubmit={handleCreate}>
+            <form onSubmit={handleUpdate}>
               <div className="m-1 w-75">
                 <Select
                   bordered={false}
@@ -125,10 +127,11 @@ const UpdateProducts = () => {
                   showSearch
                   className="form-select mb-3"
                   onChange={(value) => {
-                    setCategories(value);
+                    setCategory(value);
                   }}
+                  value={category}
                 >
-                 {categories?.map((c) => (
+                 {categories.map((c) => (
                   <Option key={c._id} value={c._id}>
                     {c.name}
                   </Option>
@@ -147,7 +150,7 @@ const UpdateProducts = () => {
                   </label>
                 </div>
                 <div className="mb-3">
-                  {photo && (
+                  {photo ? (
                     <div className="text-center">
                       <img
                         src={URL.createObjectURL(photo)}
@@ -155,8 +158,17 @@ const UpdateProducts = () => {
                         height={"200px"}
                         className="img img-responsive"
                       />
-                    </div>
-                  )}
+                    </div> 
+                  ) : (  <div className="text-center">
+                  <img
+                    src={`http://localhost:8000/api/product/product-photo/${id}`}
+                    alt="product_photo"
+                    height={"200px"}
+                    className="img img-responsive"
+                  />
+                </div> 
+              )
+                  }
                 </div>
                 <div className="mb-3">
                   <input
@@ -205,6 +217,7 @@ const UpdateProducts = () => {
                     onChange={(value) => {
                       setShipping(value);
                     }}
+                    value={shipping?"Yes":"No"}
                   >
                     <Option value="0">No</Option>
                     <Option value="1">Yes</Option>
