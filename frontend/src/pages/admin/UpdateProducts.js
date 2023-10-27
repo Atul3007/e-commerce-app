@@ -9,15 +9,15 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 const { Option } = Select;
 
 const UpdateProducts = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [photo, setPhoto] = useState("");
+  const [shipping,setShipping]=useState("");
   const [auth] = useAuth();
-  const [shipping, setShipping] = useState("");
 
   const navigate = useNavigate();
 
@@ -33,11 +33,17 @@ const UpdateProducts = () => {
   // Get category
   const getSingleProduct = async (req, res) => {
     try {
-      const { data } = await axios.get(
+      const res = await axios.get(
         `http://localhost:8000/api/product/get-single-product/${slug}`
       );
-      setCategories(data.message);
-      console.log(categories)
+      setName(res.data.message.name);
+      setDescription(res.data.message.description);
+      setPrice(res.data.message.price);
+      setQuantity(res.data.message.quantity)
+      setShipping(res.data.message.shipping);
+      setCategory(res.data.message.category.name)
+
+     //console.log(res.data.message)
     } catch (error) {
       console.log(error);
       toast.error("Error in getting categories");
@@ -46,6 +52,28 @@ const UpdateProducts = () => {
 
   useEffect(() => {
     getSingleProduct();
+  }, []);
+
+
+  const getCategory = async () => {
+    try {
+      const {data} = await axios.get(
+        "http://localhost:8000/api/category/all"
+      );
+      if (data) {
+        setCategories(data?.data);
+        console.log(data?.data);
+      } else {
+        console.log("Error in getting category");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong in getting category");
+    }
+  };
+
+  useEffect(() => {
+    getCategory();
   }, []);
 
   // Create product function
@@ -97,14 +125,14 @@ const UpdateProducts = () => {
                   showSearch
                   className="form-select mb-3"
                   onChange={(value) => {
-                    setCategory(value);
+                    setCategories(value);
                   }}
                 >
-                  {categories?.map((c) => (
-                    <Option key={c._id} value={c._id}>
-                      {c.name}
-                    </Option>
-                  ))}
+                 {categories?.map((c) => (
+                  <Option key={c._id} value={c._id}>
+                    {c.name}
+                  </Option>
+                ))}
                 </Select>
                 <div className="mb-3">
                   <label className="btn btn-outline-secondary col-md-12">
@@ -184,7 +212,7 @@ const UpdateProducts = () => {
                 </div>
                 <div className="mb-3">
                   <button className="btn btn-primary" type="submit">
-                    CREATE PRODUCT
+                    UPDATE PRODUCT
                   </button>
                 </div>
               </div>
