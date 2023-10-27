@@ -30,17 +30,17 @@ getAllProducts()
     <Layout>
       {/* {/* HomePage
     <pre>{JSON.stringify(auth,null,4)}</pre> */}
-      <div className="row mt-3">
-        <div className="col md-3">
+      <div className="row mt-3 ">
+        <div className="col-md-3">
           <h4 className="test-center">Filter by categories</h4>
         </div>
-        <div className="col md-9">
+        <div className="col-md-9 mt-100">
           <h1 className="test-center">All Products</h1>
           <div className="d-felx felx-wrap">
             <h4>Products</h4>
             <div className="card-grid">
               {products?.map((p) => (
-               <Link to={`/dashboard/admin/update-product/${p.slug}`} key={p._id} className="productLink"> 
+               <Link  key={p._id} className="productLink"> 
                 <div className="card" style={{ width: "18rem" }} >
                   <img
                     src={`http://localhost:8000/api/product/product-photo/${p._id}`}
