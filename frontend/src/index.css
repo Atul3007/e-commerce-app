@@ -86,3 +86,8 @@
   gap: 1rem;
   justify-items: center;
 }
+
+.productLink {
+  text-decoration:none !important;
+  color:black !important
+}

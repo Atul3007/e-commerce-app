@@ -40,7 +40,7 @@ const Product = () => {
             <h1 className="text-center">All products lists</h1>
             <div className="card-grid">
               {products?.map((p) => (
-               <Link to={`/dashboard/admin/product/${p.slug}`} key={p._id}> 
+               <Link to={`/dashboard/admin/product/${p.slug}`} key={p._id} className="productLink"> 
                 <div className="card" style={{ width: "18rem" }} >
                   <img
                     src={`http://localhost:8000/api/product/product-photo/${p._id}`}
@@ -48,8 +48,9 @@ const Product = () => {
                     alt="product_photo"
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">{p.description}</p>
+                    <h5 className="card-title">Title : {p.name}</h5>
+                    <h6 className="card-text">Description : {p.description}</h6>
+                    <p className="card-text">Price : {p.price}</p>
                   </div>
                 </div>
                 </Link>
