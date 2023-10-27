@@ -3,6 +3,7 @@ import AdminMenu from "./../../components/layouts/AdminMenu";
 import Layout from "../../components/layouts/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -39,7 +40,8 @@ const Product = () => {
             <h1 className="text-center">All products lists</h1>
             <div className="card-grid">
               {products?.map((p) => (
-                <div className="card" style={{ width: "18rem" }} key={p._id}>
+               <Link to={`/dashboard/admin/product/${p.slug}`} key={p._id}> 
+                <div className="card" style={{ width: "18rem" }} >
                   <img
                     src={`http://localhost:8000/api/product/product-photo/${p._id}`}
                     className="card-img-top"
@@ -50,6 +52,7 @@ const Product = () => {
                     <p className="card-text">{p.description}</p>
                   </div>
                 </div>
+                </Link>
               ))}
             </div>
           </div>
