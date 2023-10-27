@@ -14,7 +14,7 @@ const Product = () => {
       );
       if (res && res.data && res.data.message) {
         setProducts(res.data.message);
-        console.log(res.data.message)
+        console.log(res.data.message);
       } else {
         console.log("Error in getting products");
       }
@@ -35,20 +35,21 @@ const Product = () => {
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 ">
             <h1 className="text-center">All products lists</h1>
-            <div class="card" >
+            <div className="card-grid">
               {products?.map((p) => (
                 <div className="card" style={{ width: "18rem" }} key={p._id}>
-                  <img src={p.photo} className="card-img-top" alt="product_photo" />
+                  <img
+                    src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                    className="card-img-top"
+                    alt="product_photo"
+                  />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">
-                        {p.description}
-                    </p>
-                     
-                    </div>
-                    </div>
+                    <p className="card-text">{p.description}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
