@@ -19,6 +19,7 @@ import User from './pages/admin/User';
 import Profile from './pages/user/Profile';
 import Order from "./pages/user/Order";
 import Product from "./pages/admin/Product";
+import UpdateProducts from "./pages/admin/UpdateProducts";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/dashboard" element={<Admin />}>
               <Route path="admin" element={<AdminDashboard />}></Route>
               <Route path="admin/create-product" element={<CreateProduct/>}></Route>
+              <Route path="admin/update-product/:slug" element={<UpdateProducts/>}></Route>
               <Route path="admin/create-category" element={<CreateCategory/>}></Route>
               <Route path="admin/user" element={<User/>}></Route>
               <Route path="admin/product" element={<Product/>}></Route>

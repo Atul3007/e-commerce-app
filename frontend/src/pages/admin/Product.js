@@ -40,7 +40,7 @@ const Product = () => {
             <h1 className="text-center">All products lists</h1>
             <div className="card-grid">
               {products?.map((p) => (
-               <Link to={`/dashboard/admin/product/${p.slug}`} key={p._id} className="productLink"> 
+               <Link to={`/dashboard/admin/update-product/${p.slug}`} key={p._id} className="productLink"> 
                 <div className="card" style={{ width: "18rem" }} >
                   <img
                     src={`http://localhost:8000/api/product/product-photo/${p._id}`}
