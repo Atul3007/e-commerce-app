@@ -29,15 +29,15 @@ const UpdateProducts = () => {
   };
 
   const { slug } = useParams();
-  console.log(slug);
 
-  // Get all categories
+  // Get category
   const getSingleProduct = async (req, res) => {
     try {
       const { data } = await axios.get(
         `http://localhost:8000/api/product/get-single-product/${slug}`
       );
       setCategories(data.message);
+      console.log(categories)
     } catch (error) {
       console.log(error);
       toast.error("Error in getting categories");
