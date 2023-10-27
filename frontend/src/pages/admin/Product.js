@@ -9,9 +9,12 @@ const Product = () => {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/product/get-product");
+      const res = await axios.get(
+        "http://localhost:8000/api/product/get-product"
+      );
       if (res && res.data && res.data.message) {
         setProducts(res.data.message);
+        console.log(res.data.message)
       } else {
         console.log("Error in getting products");
       }
@@ -34,21 +37,19 @@ const Product = () => {
           </div>
           <div className="col-md-9">
             <h1 className="text-center">All products lists</h1>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              {products?.map((c) => (
-                <div className="card" style={{ width: "18rem", margin: '1rem' }} key={c.id}>
-                  <img src={c.photo} className="card-img-top" alt="..." />
+            <div class="card" >
+              {products?.map((p) => (
+                <div className="card" style={{ width: "18rem" }} key={p._id}>
+                  <img src={p.photo} className="card-img-top" alt="product_photo" />
                   <div className="card-body">
-                    <h5 className="card-title">{c.name}</h5>
+                    <h5 className="card-title">{p.name}</h5>
                     <p className="card-text">
-                      {c.description}
+                        {p.description}
                     </p>
-                    <a href="#" className="btn btn-primary">
-                      Go somewhere
-                    </a>
-                  </div>
-                </div>
-              )}
+                     
+                    </div>
+                    </div>
+              ))}
             </div>
           </div>
         </div>
@@ -56,5 +57,4 @@ const Product = () => {
     </Layout>
   );
 };
-
 export default Product;
