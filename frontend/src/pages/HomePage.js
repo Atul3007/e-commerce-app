@@ -48,7 +48,6 @@ useEffect(()=>{
   }, []);
 
   const handleFilter=async(status,id)=>{
-    console.log({status,id})
     try {
       let all=[...checked];
      if(status){
@@ -62,29 +61,19 @@ useEffect(()=>{
     }
   }
 
-  const handlePrice=async(status,id)=>{
-    console.log({status,id})
+  const filterData=async()=>{
     try {
-      let all=[...checked];
-     if(status){
-      all.push(id);
-     }else{
-      all=all.filter((c)=>c !== id)
-     }
-     setChecked(all);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const filterPrice=async(value,id)=>{
-    try {
-      console.log("in filter")
-      console.log({value,id})
+      if(radio||checked){
+      const res=await axios.get("http://localhost:8000/api/product/product-filter",{radio,checked});
+      console.log(res)
+      }
     } catch (error) {
       console.log(error)
     }
   }
+  useEffect(()=>{
+    filterData();
+  },{radio,checked})
 
   return (
     <Layout>
