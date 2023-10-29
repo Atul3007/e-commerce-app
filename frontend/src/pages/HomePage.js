@@ -44,7 +44,7 @@ useEffect(()=>{
   };
 
   useEffect(() => {
-    getAllProducts();
+   getAllProducts();
   }, []);
 
   const handleFilter=async(status,id)=>{
@@ -64,15 +64,16 @@ useEffect(()=>{
   const filterData=async()=>{
     try {
       if(radio||checked){
-      const {product}=await axios.post("http://localhost:8000/api/product/product-filter",{radio,checked});
-      console.log(product)
+      const {data}=await axios.post("http://localhost:8000/api/product/product-filter",{radio,checked});
+      setProducts(data.product)
       }
     } catch (error) {
       console.log(error)
     }
   }
   useEffect(()=>{
-    filterData();
+    if(checked.length!==0&&radio){filterData()}
+    else{ getAllProducts()};
   },[radio,checked])
 
   return (

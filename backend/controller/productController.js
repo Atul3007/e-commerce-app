@@ -175,13 +175,13 @@ const productFilter=async(req,res)=>{
     const { checked, radio } = req.body;
     const obj = {};
     if (checked) {
-      obj.category = checked;
+      obj.category=checked;
     }
     if (radio) {
       obj.price = { $gte: radio[0], $lte: radio[1] };
     }
     const product = await productModel.find(obj);
-    console.log(product)
+   // console.log(product)
     res.status(200).send({
       success: true,
       product,
