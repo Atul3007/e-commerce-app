@@ -45,6 +45,21 @@ useEffect(()=>{
     getAllProducts();
   }, []);
 
+  const handleFilter=async(status,id)=>{
+    console.log({status,id})
+    try {
+      let all=[...checked];
+     if(status){
+      all.push(id);
+     }else{
+      all=all.filter((c)=>c !== id)
+     }
+     setChecked(all);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Layout>
       {/* {/* HomePage
@@ -54,14 +69,14 @@ useEffect(()=>{
           <h4 className="test-center">Filter by categories</h4>
           <div className="d-flex flex-column" style={{margin:"30px"}}>
           {category?.map((c)=>(
-            <Checkbox key={c._id} onChange={()=>handleFilter(e.target.checked)}>{c.name}</Checkbox>
+            <Checkbox key={c._id} onChange={(e)=>handleFilter(e.target.checked,c._id)}>{c.name}</Checkbox>
           ))}
           </div>
         </div>
         <div className="col-md-8" >
           <h1 className="test-center">All Products</h1>
           <div className="d-felx felx-wrap" style={{justifyContent:"space-evenly"}}>
-            <h4 style={{textAlign:"center"}}>Products</h4>
+            <h4 style={{textAlign:"center"}}>Products </h4>
             <div className="card-grid">
               {products?.map((p) => (
                 <Link key={p._id} className="productLink">
