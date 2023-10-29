@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/layouts/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
-import {Checkbox} from "antd"
+import {Checkbox,Radio} from "antd"
 import { Link } from "react-router-dom";
+import { price } from "../components/Price";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  const [checked,setChecked] = useState("");
+  const [checked,setChecked] = useState([]);
+  const [radio,setRadio] = useState([])
 
   const getAllCategory = async () => {
     try {
@@ -60,16 +62,37 @@ useEffect(()=>{
     }
   }
 
+  const handlePrice=async(status,id)=>{
+    console.log({status,id})
+    try {
+      let all=[...checked];
+     if(status){
+      all.push(id);
+     }else{
+      all=all.filter((c)=>c !== id)
+     }
+     setChecked(all);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Layout>
       {/* {/* HomePage
     <pre>{JSON.stringify(auth,null,4)}</pre> */}
-      <div className="row mt-3 ">
+      <div className="row ">
         <div className="col-md-3">
           <h4 className="test-center">Filter by categories</h4>
           <div className="d-flex flex-column" style={{margin:"30px"}}>
           {category?.map((c)=>(
             <Checkbox key={c._id} onChange={(e)=>handleFilter(e.target.checked,c._id)}>{c.name}</Checkbox>
+          ))}
+          </div>
+          <h4 className="test-center">Filter by prices</h4>
+          <div className="d-flex flex-column" style={{margin:"30px"}}>
+          {price?.map((c)=>(
+            <Radio key={c._id} onChange={(e)=>handleFilter(e.target.checked,c._id)}>{c.name}</Radio>
           ))}
           </div>
         </div>
