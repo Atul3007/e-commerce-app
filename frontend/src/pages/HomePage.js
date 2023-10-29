@@ -98,11 +98,13 @@ useEffect(()=>{
             <Checkbox key={c._id} onChange={(e)=>handleFilter(e.target.checked,c._id)}>{c.name}</Checkbox>
           ))}
           </div>
-          <h4 className="test-center">Filter by prices</h4>
+          <h4 className="test-center mt-4">Filter by prices</h4>
           <div className="d-flex flex-column" style={{margin:"30px"}}>
-            <Radio.Group>
+            <Radio.Group onChange={(e)=>setRadio(e.target.value)}>
           {price?.map((c)=>(
-            <Radio key={c._id} onChange={(e)=>filterPrice(e.target.checked,c._id)}>{c.name}</Radio>
+            <div key={c._id} >
+              <Radio value={c.array} >{c.name}</Radio>
+            </div>
           ))}
           </Radio.Group>
           </div>
