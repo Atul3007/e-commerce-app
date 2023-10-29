@@ -77,6 +77,15 @@ useEffect(()=>{
     }
   }
 
+  const filterPrice=async(value,id)=>{
+    try {
+      console.log("in filter")
+      console.log({value,id})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Layout>
       {/* {/* HomePage
@@ -91,9 +100,11 @@ useEffect(()=>{
           </div>
           <h4 className="test-center">Filter by prices</h4>
           <div className="d-flex flex-column" style={{margin:"30px"}}>
+            <Radio.Group>
           {price?.map((c)=>(
-            <Radio key={c._id} onChange={(e)=>handleFilter(e.target.checked,c._id)}>{c.name}</Radio>
+            <Radio key={c._id} onChange={(e)=>filterPrice(e.target.checked,c._id)}>{c.name}</Radio>
           ))}
+          </Radio.Group>
           </div>
         </div>
         <div className="col-md-8" >
