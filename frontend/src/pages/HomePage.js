@@ -81,7 +81,7 @@ useEffect(()=>{
       {/* {/* HomePage
     <pre>{JSON.stringify(auth,null,4)}</pre> */}
       <div className="row ">
-        <div className="col-md-3">
+        <div className="col-md-3 mt-5" style={{marginLeft:"30px"}}>
           <h4 className="test-center">Filter by categories</h4>
           <div className="d-flex flex-column" style={{margin:"30px"}}>
           {category?.map((c)=>(
@@ -102,10 +102,9 @@ useEffect(()=>{
           <button className="btn btn-danger" onClick={()=>window.location.reload()}>Clear filter</button>
           </div>
         </div>
-        <div className="col-md-8" >
-          <h1 className="test-center">All Products</h1>
+        <div className="col-md-8 mb-5" >
+          <h1 className="test-center mt-4" style={{textAlign:"center"}}>All Products</h1>
           <div className="d-felx felx-wrap" style={{justifyContent:"space-evenly"}}>
-            <h4 style={{textAlign:"center"}}>Products </h4>
             <div className="card-grid">
               {products?.map((p) => (
                 <Link key={p._id} className="productLink">

@@ -211,7 +211,20 @@ const productCount=async(req,res)=>{
   }
 }
 
+const productPerPage=async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in counting product",
+    }); 
+  }
+}
+
 module.exports = {
+  productPerPage,
   productCount,
   productFilter,
   createProduct,

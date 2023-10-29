@@ -1,5 +1,5 @@
 const express=require("express");
-const { createProduct, getProduct, getSingleProduct, getProductPhoto, deleteProduct, updateProduct, productFilter, productCount } = require("../controller/productController");
+const { createProduct, getProduct, getSingleProduct, getProductPhoto, deleteProduct, updateProduct, productFilter, productCount, productPerPage } = require("../controller/productController");
 const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const productRouter=express.Router();
 const formidableMiddleware = require('express-formidable');
@@ -19,6 +19,8 @@ productRouter.delete("/delete-product/:pid",deleteProduct)
 productRouter.post("/product-filter",productFilter)
 
 productRouter.get("/product-count",productCount)
+
+productRouter.get("/product-per-page",productPerPage)
 
 module.exports={
     productRouter 
