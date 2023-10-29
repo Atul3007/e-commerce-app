@@ -65,14 +65,14 @@ useEffect(()=>{
             <div className="card-grid">
               {products?.map((p) => (
                 <Link key={p._id} className="productLink">
-                  <div className="card" style={{ width: "24rem" }}>
+                  <div className="card" style={{ width: "20rem" }}>
                     <img
                       src={`http://localhost:8000/api/product/product-photo/${p._id}`}
                       className="card-img-top"
                       style={{
-                        width: "300px",
-                        height: "300px",
-                        marginLeft: "50px",
+                        width: "270px",
+                        height: "270px",
+                        marginLeft: "20px",
                         marginTop: "20px",
                       }}
                       alt="product_photo"
