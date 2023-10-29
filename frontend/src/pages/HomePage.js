@@ -98,6 +98,9 @@ useEffect(()=>{
           ))}
           </Radio.Group>
           </div>
+          <div className="d-flex flex-column" style={{width:"100px",marginLeft:"40px"}}>
+          <button className="btn btn-danger" onClick={()=>window.location.reload()}>Clear filter</button>
+          </div>
         </div>
         <div className="col-md-8" >
           <h1 className="test-center">All Products</h1>
@@ -121,7 +124,7 @@ useEffect(()=>{
                     <div className="card-body" style={{ marginLeft: "50px" }}>
                       <h5 className="card-title">Title : {p.name}</h5>
                       <h6 className="card-text">
-                        Description : {p.description}
+                        Description : {p.description.substring(0,30)}
                       </h6>
                       <p className="card-text">Price : {p.price}</p>
                       <div className="card-body">
