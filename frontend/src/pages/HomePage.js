@@ -60,7 +60,7 @@ useEffect(()=>{
         </div>
         <div className="col-md-8" >
           <h1 className="test-center">All Products</h1>
-          <div className="d-felx felx-wrap">
+          <div className="d-felx felx-wrap" style={{justifyContent:"space-evenly"}}>
             <h4 style={{textAlign:"center"}}>Products</h4>
             <div className="card-grid">
               {products?.map((p) => (
