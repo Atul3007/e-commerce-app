@@ -195,7 +195,24 @@ const productFilter=async(req,res)=>{
   }
 }
 
+const productCount=async(req,res)=>{
+  try {
+    const count=await productModel.estimatedDocumentCount();
+    res.status(200).send({
+      success:true,
+      count
+    })
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in counting product",
+    }); 
+  }
+}
+
 module.exports = {
+  productCount,
   productFilter,
   createProduct,
   updateProduct,
