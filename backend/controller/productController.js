@@ -172,18 +172,23 @@ const deleteProduct=async(req,res)=>{
 
 const productFilter=async(req,res)=>{
   try {
-    const {checked,radio}=req.body;
-    const obj={};
-    if(checked){
-      obj.category=checked;
-    }if(radio){
-      obj.price={$gte:radio[0],$lte:radio[1]}
+    const { checked, radio } = req.body;
+    const obj = {};
+  
+    if (checked) {
+      obj.category = checked;
     }
-     const product=await productModel.find({obj})
-     res.status(200).send({
-      success:true,
-      product
-     })
+  
+    if (radio) {
+      obj.price = { $gte: radio[0], $lte: radio[1] };
+    }
+  
+    const product = await productModel.find(obj);
+  console.log(product)
+    res.status(200).send({
+      success: true,
+      product,
+    });
   } catch (error) {
     res.status(400).send({
       success: false,

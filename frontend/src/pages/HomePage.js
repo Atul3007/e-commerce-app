@@ -18,7 +18,7 @@ const HomePage = () => {
         "http://localhost:8000/api/category/all"
       );
       setCategory(data.data);
-      console.log(category)
+     // console.log(category)
     } catch (error) {
       console.log(error);
       toast.error("error in getting category");
@@ -64,8 +64,8 @@ useEffect(()=>{
   const filterData=async()=>{
     try {
       if(radio||checked){
-      const res=await axios.get("http://localhost:8000/api/product/product-filter",{radio,checked});
-      console.log(res)
+      const {product}=await axios.post("http://localhost:8000/api/product/product-filter",{radio,checked});
+      console.log(product)
       }
     } catch (error) {
       console.log(error)
@@ -73,7 +73,7 @@ useEffect(()=>{
   }
   useEffect(()=>{
     filterData();
-  },{radio,checked})
+  },[radio,checked])
 
   return (
     <Layout>

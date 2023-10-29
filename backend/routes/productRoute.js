@@ -16,7 +16,7 @@ productRouter.get("/product-photo/:pid",getProductPhoto)
 
 productRouter.delete("/delete-product/:pid",deleteProduct)
 
-productRouter.get("/product-filter",productFilter)
+productRouter.post("/product-filter",productFilter)
 
 module.exports={
     productRouter 
