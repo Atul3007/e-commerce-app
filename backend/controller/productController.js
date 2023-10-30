@@ -228,6 +228,10 @@ const productPerPage = async (req, res) => {
       .skip((page - 1) * perPage)
       .limit(perPage)
       .sort({ createdAt: -1 });
+      res.status(200).send({
+        success:true,
+        product
+      })
   } catch (error) {
     res.status(400).send({
       success: false,

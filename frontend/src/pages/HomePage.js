@@ -10,7 +10,10 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [checked,setChecked] = useState([]);
-  const [radio,setRadio] = useState([])
+  const [radio,setRadio] = useState([]);
+  const [total,setTotal] = useState(0);
+  const [page,setPage] = useState(1);
+  const [loading,setLoading] = useState(false);
 
   const getAllCategory = async () => {
     try {
@@ -25,20 +28,32 @@ const HomePage = () => {
     }
   };
 
+const totalProduct=async()=>{
+  try {
+    const {data}=await axios.get("http://localhost:8000/api/product/product-count");
+    setTotal(data?.count)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 useEffect(()=>{
   getAllCategory();
+  totalProduct();
 },[])
 
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:8000/api/product/get-product"
+      setLoading(true)
+      const {data}= await axios.get(
+       `http://localhost:8000/api/product/product-list/${page}`
       );
-      if (data) {
-        // console.log(data.message)
-        setProducts(data.message);
-      }
+      setLoading(false);
+      console.log(data.product)
+      setProducts(data.product)
+     
     } catch (error) {
+      setLoading(false);
       console.log("error in getting products");
     }
   };
@@ -135,6 +150,16 @@ useEffect(()=>{
                 </Link>
               ))}
             </div>
+          </div>
+          <div className="m-2 p-3">
+            {products && products.length < total && (
+              <button className="btn btn-warning" onClick={
+                (e)=>{ e.preventDefault()
+                 setPage(page+1)
+              }}>
+                {loading?"Loading...":"LoadMore"}
+                 </button>
+            ) }
           </div>
         </div>
       </div>
