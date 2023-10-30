@@ -49,7 +49,7 @@ useEffect(()=>{
        `http://localhost:8000/api/product/product-list/${page}`
       );
       setLoading(false);
-      console.log(data.product)
+     // console.log(data.product)
       setProducts(data.product)
      
     } catch (error) {
@@ -61,6 +61,25 @@ useEffect(()=>{
   useEffect(() => {
    getAllProducts();
   }, []);
+
+const loadMore=async()=>{
+  try {
+    setLoading(true)
+    const {data}= await axios.get(
+     `http://localhost:8000/api/product/product-list/${page}`
+    );
+    setLoading(false);
+    setProducts([...products,...data?.product])
+    console.log(products)
+  } catch (error) {
+    console.log("error in loading products")
+  }
+}
+
+useEffect(()=>{
+  if(page==1){return}
+  loadMore()
+},[page])
 
   const handleFilter=async(status,id)=>{
     try {
