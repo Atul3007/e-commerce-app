@@ -4,9 +4,10 @@ const fs = require("fs");
 
 const createProduct = async (req, res) => {
   try {
-    const { name, slug, description, price, category, shipping,quantity } = req.fields;
-    const { photo } = req.files;  
-   // console.log(req.files,req.fields)
+    const { name, slug, description, price, category, shipping, quantity } =
+      req.fields;
+    const { photo } = req.files;
+    // console.log(req.files,req.fields)
     if (
       !name ||
       !description ||
@@ -14,22 +15,22 @@ const createProduct = async (req, res) => {
       !category ||
       !quantity ||
       !photo ||
-      photo.size > 1000000 
+      photo.size > 1000000
     ) {
       return res.status(400).send({
         message: "all fields required and pic size should be less than 1mb",
-      }); 
+      });
     }
     const product = new productModel({ ...req.fields, slug: slugify(name) });
     if (photo) {
       product.photo.data = fs.readFileSync(photo.path);
-      product.photo.contentType = photo.type; 
+      product.photo.contentType = photo.type;
     }
     await product.save();
 
     res.status(201).json({
       success: true,
-      message: "Product created successfully",  
+      message: "Product created successfully",
       product,
     });
   } catch (error) {
@@ -42,45 +43,49 @@ const createProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-    try {
-      const id=req.params.pid;  
-      const { name, slug, description, price, category, shipping,quantity} = req.fields;
-      const { photo } = req.files;
-      console.log(id,name,photo)
-      if (
-        !name ||
-        !description ||
-        !price ||
-        !category ||
-        !shipping ||
-        !quantity ||
-        !photo ||
-        photo.size > 1000000
-      ) {
-        return res.status(400).send({
-          message: "all fields required and pic size should be less than 1mb",
-        });
-      }
-      const product =await productModel.findByIdAndUpdate(id,{...req.fields, slug: slugify(name)})  
-      if (photo) {
-        product.photo.data = fs.readFileSync(photo.path);
-        product.photo.contentType = photo.type;
-      }
-      await product.save();
-  
-      res.status(201).json({
-        success: true,
-        message: "Product updated successfully",
-        product,
-      });
-    } catch (error) {
-      res.status(400).send({
-        success: false,
-        error: error.message,
-        message: "Error in updating product",
+  try {
+    const id = req.params.pid;
+    const { name, slug, description, price, category, shipping, quantity } =
+      req.fields;
+    const { photo } = req.files;
+    console.log(id, name, photo);
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !shipping ||
+      !quantity ||
+      !photo ||
+      photo.size > 1000000
+    ) {
+      return res.status(400).send({
+        message: "all fields required and pic size should be less than 1mb",
       });
     }
-  };
+    const product = await productModel.findByIdAndUpdate(id, {
+      ...req.fields,
+      slug: slugify(name),
+    });
+    if (photo) {
+      product.photo.data = fs.readFileSync(photo.path);
+      product.photo.contentType = photo.type;
+    }
+    await product.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Product updated successfully",
+      product,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in updating product",
+    });
+  }
+};
 
 const getProduct = async (req, res) => {
   try {
@@ -137,12 +142,12 @@ const getProductPhoto = async (req, res) => {
   try {
     const id = req.params.pid;
     const ProductPhoto = await productModel.findById(id).select("photo");
-   // console.log(ProductPhoto.photo.data)
-    if(ProductPhoto.photo.data){
-        res.set('Content-type',ProductPhoto.photo.contentType);
-        return res.status(200).send(ProductPhoto.photo.data)
-    }else{
-      console.log("error")
+    // console.log(ProductPhoto.photo.data)
+    if (ProductPhoto.photo.data) {
+      res.set("Content-type", ProductPhoto.photo.contentType);
+      return res.status(200).send(ProductPhoto.photo.data);
+    } else {
+      console.log("error");
     }
   } catch (error) {
     res.status(400).send({
@@ -153,35 +158,37 @@ const getProductPhoto = async (req, res) => {
   }
 };
 
-const deleteProduct=async(req,res)=>{
-    try {
-        const id=req.params.pid;
-        const deleteProduct=await productModel.findByIdAndDelete(id).select("-photo");
-        res.status(200).send({
-            success: true,
-            message: "Product deleted successfully",
-          });
-    } catch (error) {
-        res.status(400).send({
-            success: false,
-            error: error.message,
-            message: "Error in deleting product",
-          }); 
-    }
-}
+const deleteProduct = async (req, res) => {
+  try {
+    const id = req.params.pid;
+    const deleteProduct = await productModel
+      .findByIdAndDelete(id)
+      .select("-photo");
+    res.status(200).send({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in deleting product",
+    });
+  }
+};
 
-const productFilter=async(req,res)=>{
+const productFilter = async (req, res) => {
   try {
     const { checked, radio } = req.body;
     const obj = {};
     if (checked) {
-      obj.category=checked;
+      obj.category = checked;
     }
     if (radio) {
       obj.price = { $gte: radio[0], $lte: radio[1] };
     }
     const product = await productModel.find(obj);
-   // console.log(product)
+    // console.log(product)
     res.status(200).send({
       success: true,
       product,
@@ -191,37 +198,44 @@ const productFilter=async(req,res)=>{
       success: false,
       error: error.message,
       message: "Error in filtering product",
-    }); 
+    });
   }
-}
+};
 
-const productCount=async(req,res)=>{
+const productCount = async (req, res) => {
   try {
-    const count=await productModel.estimatedDocumentCount();
+    const count = await productModel.estimatedDocumentCount();
     res.status(200).send({
-      success:true,
-      count
-    })
+      success: true,
+      count,
+    });
   } catch (error) {
     res.status(400).send({
       success: false,
       error: error.message,
       message: "Error in counting product",
-    }); 
+    });
   }
-}
+};
 
-const productPerPage=async(req,res)=>{
+const productPerPage = async (req, res) => {
   try {
-    
+    const perPage = 3;
+    const page = req.params.page ? req.params.page : 1;
+    const product = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
   } catch (error) {
     res.status(400).send({
       success: false,
       error: error.message,
       message: "Error in counting product",
-    }); 
+    });
   }
-}
+};
 
 module.exports = {
   productPerPage,
@@ -232,5 +246,5 @@ module.exports = {
   getProduct,
   getSingleProduct,
   getProductPhoto,
-  deleteProduct
+  deleteProduct,
 };
