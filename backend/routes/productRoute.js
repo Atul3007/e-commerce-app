@@ -22,6 +22,8 @@ productRouter.get("/product-count",productCount)
 
 productRouter.get("/product-per-page",productPerPage)
 
+productRouter.get("/product-list/:page",productPerPage)
+
 module.exports={
     productRouter 
 }
