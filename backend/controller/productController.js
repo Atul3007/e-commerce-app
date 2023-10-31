@@ -228,10 +228,10 @@ const productPerPage = async (req, res) => {
       .skip((page - 1) * perPage)
       .limit(perPage)
       .sort({ createdAt: -1 });
-      res.status(200).send({
-        success:true,
-        product
-      })
+    res.status(200).send({
+      success: true,
+      product,
+    });
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -241,11 +241,18 @@ const productPerPage = async (req, res) => {
   }
 };
 
-const searchProduct=async(req,res)=>{
+const searchProduct = async (req, res) => {
   try {
-    const {keyword}=req.params;
-    const product=await productModel.find({$or:[{name:{$regex:keyword,$options:"i"},description:{$regex:keyword,$options:"i"}}]})
-    console.log(product)
+    const { keyword } = req.params;
+    const product = await productModel.find({
+      $or: [
+        {
+          name: { $regex: keyword, $options: "i" },
+          description: { $regex: keyword, $options: "i" },
+        },
+      ],
+    });
+    res.status(200).send({ success: true, product });
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -253,7 +260,7 @@ const searchProduct=async(req,res)=>{
       message: "Error in searching products",
     });
   }
-}
+};
 
 module.exports = {
   searchProduct,
