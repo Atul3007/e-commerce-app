@@ -1,5 +1,5 @@
 const express=require("express");
-const { createProduct, getProduct, getSingleProduct, getProductPhoto, deleteProduct, updateProduct, productFilter, productCount, productPerPage } = require("../controller/productController");
+const { createProduct, getProduct, getSingleProduct, getProductPhoto, deleteProduct, updateProduct, productFilter, productCount, productPerPage, searchProduct } = require("../controller/productController");
 const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const productRouter=express.Router();
 const formidableMiddleware = require('express-formidable');
@@ -21,6 +21,8 @@ productRouter.post("/product-filter",productFilter)
 productRouter.get("/product-count",productCount)
 
 productRouter.get("/product-list/:page",productPerPage)
+
+productRouter.get("/search-product/:keyword",searchProduct)
 
 module.exports={
     productRouter 

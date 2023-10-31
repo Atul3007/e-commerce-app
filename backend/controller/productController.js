@@ -241,7 +241,22 @@ const productPerPage = async (req, res) => {
   }
 };
 
+const searchProduct=async(req,res)=>{
+  try {
+    const {keyword}=req.params;
+    const product=await productModel.find({$or:[{name:{$regex:keyword,$options:"i"},description:{$regex:keyword,$options:"i"}}]})
+    console.log(product)
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in searching products",
+    });
+  }
+}
+
 module.exports = {
+  searchProduct,
   productPerPage,
   productCount,
   productFilter,
