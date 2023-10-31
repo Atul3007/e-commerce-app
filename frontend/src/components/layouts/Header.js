@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { AiFillShop } from "react-icons/ai";
 import { useAuth } from "../../context/Auth";
 import toast from "react-hot-toast";
-import SearchProduct from './../form/Search';
+import SearchProduct from '../form/SearchProduct';
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -35,7 +35,9 @@ const Header = () => {
               E-Commerce App <AiFillShop />
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <div style={{marginRight:"90px",width:"700px"}}>
               <SearchProduct/>
+              </div>
               <li className="nav-item">
                 <NavLink to="/" className="nav-link " aria-current="page">
                   Home
