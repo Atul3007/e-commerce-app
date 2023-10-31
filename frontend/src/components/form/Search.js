@@ -1,7 +1,8 @@
 import React from "react";
 import { useSearch } from "../../context/Search";
 import axios from "axios";
-const Search =async () => {
+import { Navigate } from "react-router-dom";
+const SearchProduct =async () => {
     const [search,setSearch]=useSearch();
 
     const handleSubmit=async(e)=>{
@@ -9,6 +10,7 @@ const Search =async () => {
         try {
             const {product}=await axios.get(`http://localhost:8000/api/product//search-product/${search}`)
             setValues({...search,result:product})
+            Navigate("/search");
         } catch (error) {
             console.log({error})
         }
@@ -32,4 +34,4 @@ const Search =async () => {
   );
 };
 
-export default Search;
+export default SearchProduct;
