@@ -10,10 +10,9 @@ const SearchProduct =() => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         try {
-            const {data}=await axios.get(`http://localhost:8000/api/product/search-product/${search}`)
-            //   setSearch({...search,result:product})
-              console.log(data.product)
-            // Navigate("/searchproducts");
+            const {data}=await axios.get(`http://localhost:8000/api/product/search-product/${search.keyword}`)
+               setSearch({...search,result:data.product})
+               Navigate("/searchproducts");
         } catch (error) {
             console.log({error})
         }
