@@ -1,10 +1,11 @@
 import React from "react";
 import { useSearch } from "../../context/Search";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 const SearchProduct =() => {
+    const navigate=useNavigate();
     const [search,setSearch]=useSearch();
 
     const handleSubmit=async(e)=>{
@@ -12,7 +13,7 @@ const SearchProduct =() => {
         try {
             const {data}=await axios.get(`http://localhost:8000/api/product/search-product/${search.keyword}`)
                setSearch({...search,result:data.product})
-               Navigate("/searchproducts");
+               navigate("/searchproducts");
         } catch (error) {
             console.log({error})
         }
