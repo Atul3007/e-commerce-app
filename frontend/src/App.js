@@ -8,6 +8,7 @@ import Pagenotfound from "./pages/Pagenotfound";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 import { AuthProvider } from "./context/Auth";
+import { SearchProvider } from "./context/Search";
 import Dashboard from "./pages/user/Dashboard";
 import Private from "./components/routes/Private";
 import Forgotpass from "./pages/Auth/Forgotpass";
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <>
       <AuthProvider>
+        <SearchProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/forgotpassword" element={<Forgotpass />} />
@@ -47,6 +49,7 @@ const App = () => {
             <Route path="/*" element={<Pagenotfound />} />
           </Routes>
         </BrowserRouter>
+        </SearchProvider>
       </AuthProvider>
     </>
   );

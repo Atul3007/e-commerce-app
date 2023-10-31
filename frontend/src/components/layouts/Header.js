@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { AiFillShop } from "react-icons/ai";
 import { useAuth } from "../../context/Auth";
 import toast from "react-hot-toast";
+import Search from "../form/Search";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
