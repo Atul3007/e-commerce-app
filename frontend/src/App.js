@@ -21,6 +21,7 @@ import Profile from './pages/user/Profile';
 import Order from "./pages/user/Order";
 import Product from "./pages/admin/Product";
 import UpdateProducts from "./pages/admin/UpdateProducts";
+import Search from "./pages/Search";
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/*" element={<Pagenotfound />} />
+            <Route path="/searchproducts" element={<Search/>}/>
           </Routes>
         </BrowserRouter>
         </SearchProvider>
