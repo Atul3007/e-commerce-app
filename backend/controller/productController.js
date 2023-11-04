@@ -243,7 +243,7 @@ const productPerPage = async (req, res) => {
 
 const searchProduct = async (req, res) => {
   try {
-    const {keyword}  = req.params;
+    const { keyword } = req.params;
     const product = await productModel.find({
       $or: [
         {
