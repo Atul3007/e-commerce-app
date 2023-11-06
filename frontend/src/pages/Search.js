@@ -31,7 +31,7 @@ const Search = () => {
         </div>
       </div>
     </Layout>
-  )
+  )sdgkjl;
 }
 
 export default Search
