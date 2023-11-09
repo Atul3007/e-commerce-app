@@ -11,7 +11,7 @@ const SearchProduct =() => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         try {
-            const {data}=await axios.get(`https://lucky-jade-yoke.cyclic.app/api/product/search-product/${search.keyword}`)
+            const {data}=await axios.get(`http://localhost:8000/api/product/search-product/${search.keyword}`)
                setSearch({...search,result:data.product})
                navigate("/searchproducts");
         } catch (error) {

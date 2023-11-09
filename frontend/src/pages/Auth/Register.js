@@ -27,7 +27,7 @@ const Register = () => {
         role: "user",
         question
       };
-      const res = await axios.post("https://lucky-jade-yoke.cyclic.app/api/register", obj);
+      const res = await axios.post("http://localhost:8000/api/register", obj);
       console.log(res.data.message)
       alert(res.data.message);
       toast.success(res.data.message)

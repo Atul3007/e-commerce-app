@@ -26,7 +26,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://lucky-jade-yoke.cyclic.app/api/category/create-category",
+        "http://localhost:8000/api/category/create-category",
         { name },
         config
       );
@@ -47,7 +47,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `https://lucky-jade-yoke.cyclic.app/api/category/update-category/${selected._id}`,
+        `http://localhost:8000/api/category/update-category/${selected._id}`,
         { name: updatedName },
         config
       );
@@ -70,7 +70,7 @@ const CreateCategory = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "https://lucky-jade-yoke.cyclic.app/api/category/all"
+        "http://localhost:8000/api/category/all"
       );
       setCategory(data.data);
     } catch (error) {
@@ -82,7 +82,7 @@ const CreateCategory = () => {
   const handleDelete = async () => {
     try {
       const { data } = await axios.delete(
-        `https://lucky-jade-yoke.cyclic.app/api/category/delete-category/${selected._id}`
+        `http://localhost:8000/api/category/delete-category/${selected._id}`
       );
 
       if (data) {

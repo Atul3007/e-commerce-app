@@ -11,7 +11,7 @@ const Admin = () => {
     
     useEffect(() => {
         const authCheck = async () => {
-            const res = await axios.get("https://lucky-jade-yoke.cyclic.app/api/admin-auth", {
+            const res = await axios.get("http://localhost:8000/api/admin-auth", {
                 headers: {
                     Authorization: auth?.token
                 }
