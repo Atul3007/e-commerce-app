@@ -168,7 +168,6 @@ const HomePage = () => {
           >
             <div className="card-grid">
               {products?.map((p) => (
-              
                   <div className="card" style={{ width: "20rem" }}>
                     <img
                       src={`http://localhost:8000/api/product/product-photo/${p._id}`}
