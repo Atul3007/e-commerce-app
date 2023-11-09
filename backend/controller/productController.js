@@ -262,7 +262,30 @@ const searchProduct = async (req, res) => {
   }
 };
 
+
+const relatedProduct=async(req,res)=>{
+  try {
+    const {pid,cid}=req.params;
+    //console.log(pid,cid)
+    const products=await productModel.find({
+      category:cid,
+      _id:{$ne:pid}
+    }).select("-photo").limit(5).populate("category");
+    res.status(200).send({
+      success:true,
+      products
+    })
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting related products",
+    });
+  }
+}
+
 module.exports = {
+  relatedProduct,
   searchProduct,
   productPerPage,
   productCount,
