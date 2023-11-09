@@ -35,7 +35,7 @@ const UpdateProducts = () => {
   const getSingleProduct = async (req, res) => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/product/get-single-product/${slug}`
+        `https://lucky-jade-yoke.cyclic.app/api/product/get-single-product/${slug}`
       );
       setName(res.data.message.name);
       setId(res.data.message._id);
@@ -60,7 +60,7 @@ const UpdateProducts = () => {
   const getAllCategory = async () => {
     try {
       const {data} = await axios.get(
-        "http://localhost:8000/api/category/all"
+        "https://lucky-jade-yoke.cyclic.app/api/category/all"
       );
       if (data) {
         setCategories(data?.data);
@@ -92,7 +92,7 @@ const UpdateProducts = () => {
       productData.append("shipping", shipping);
 
       const response = await axios.put(
-        `http://localhost:8000/api/product/update-product/${id}`,
+        `https://lucky-jade-yoke.cyclic.app/api/product/update-product/${id}`,
         productData,
         config
       );
@@ -113,7 +113,7 @@ const UpdateProducts = () => {
     try {
         let ans=window.prompt("Are you sure want to delete?")
         if(!ans)return
-        const res=axios.delete(`http://localhost:8000/api/product/delete-product/${id}`)
+        const res=axios.delete(`https://lucky-jade-yoke.cyclic.app/api/product/delete-product/${id}`)
         if(res){
             toast.success("Deleted successfully!!!!")
             navigate("/dashboard/admin/product");
@@ -176,7 +176,7 @@ const UpdateProducts = () => {
                     </div> 
                   ) : (  <div className="text-center">
                   <img
-                    src={`http://localhost:8000/api/product/product-photo/${id}`}
+                    src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${id}`}
                     alt="product_photo"
                     height={"200px"}
                     className="img img-responsive"

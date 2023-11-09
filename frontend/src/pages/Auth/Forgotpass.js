@@ -21,7 +21,7 @@ const Forgotpass = () => {
         password,
         question
       };
-      const res = await axios.post("http://localhost:8000/api/forgotpass", obj);
+      const res = await axios.post("https://lucky-jade-yoke.cyclic.app/api/forgotpass", obj);
       toast.success(res.data.message);
       alert(res.data.message)
       navigate("/login")

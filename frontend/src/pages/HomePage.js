@@ -18,7 +18,7 @@ const HomePage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/category/all"
+        "https://lucky-jade-yoke.cyclic.app/api/category/all"
       );
       setCategory(data.data);
      // console.log(category)
@@ -30,7 +30,7 @@ const HomePage = () => {
 
 const totalProduct=async()=>{
   try {
-    const {data}=await axios.get("http://localhost:8000/api/product/product-count");
+    const {data}=await axios.get("https://lucky-jade-yoke.cyclic.app/api/product/product-count");
     setTotal(data?.count)
   } catch (error) {
     console.log(error)
@@ -46,7 +46,7 @@ useEffect(()=>{
     try {
       setLoading(true)
       const {data}= await axios.get(
-       `http://localhost:8000/api/product/product-list/${page}`
+       `https://lucky-jade-yoke.cyclic.app/api/product/product-list/${page}`
       );
       setLoading(false);
      // console.log(data.product)
@@ -66,7 +66,7 @@ const loadMore=async()=>{
   try {
     setLoading(true)
     const {data}= await axios.get(
-     `http://localhost:8000/api/product/product-list/${page}`
+     `https://lucky-jade-yoke.cyclic.app/api/product/product-list/${page}`
     );
     setLoading(false);
     setProducts([...products,...data?.product])
@@ -98,7 +98,7 @@ useEffect(()=>{
   const filterData=async()=>{
     try {
       if(radio||checked){
-      const {data}=await axios.post("http://localhost:8000/api/product/product-filter",{radio,checked});
+      const {data}=await axios.post("hhttps://lucky-jade-yoke.cyclic.app/api/product/product-filter",{radio,checked});
       setProducts(data.product)
       }
     } catch (error) {
@@ -144,7 +144,7 @@ useEffect(()=>{
                 <Link key={p._id} className="productLink">
                   <div className="card" style={{ width: "20rem" }}>
                     <img
-                      src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                      src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${p._id}`}
                       className="card-img-top"
                       style={{
                         width: "270px",
