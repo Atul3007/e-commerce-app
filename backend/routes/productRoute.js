@@ -10,7 +10,7 @@ productRouter.put("/update-product/:pid",requireSignin,checkRole,formidableMiddl
 
 productRouter.get("/get-product",getProduct)
 
-productRouter.get("/get-single-product/:slug",getSingleProduct)
+productRouter.get("/get-single-product/:pid",getSingleProduct)
 
 productRouter.get("/product-photo/:pid",getProductPhoto)
 

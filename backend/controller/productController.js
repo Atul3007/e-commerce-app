@@ -111,9 +111,9 @@ const getProduct = async (req, res) => {
 
 const getSingleProduct = async (req, res) => {
   try {
-    const slug = req.params.slug;
+    const id = req.params.pid;
     const product = await productModel
-      .findOne({ slug })
+      .findById(id)
       .select("-photo")
       .populate("category");
     if (!product) {

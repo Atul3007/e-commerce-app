@@ -22,6 +22,7 @@ import Order from "./pages/user/Order";
 import Product from "./pages/admin/Product";
 import UpdateProducts from "./pages/admin/UpdateProducts";
 import Search from "./pages/Search";
+import ProductDetails from "./pages/ProductDetails";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
               <Route path="admin/product" element={<Product/>}></Route>
             </Route>
             <Route path="/" element={<HomePage />} />
+            <Route path="/product/:pid" element={<ProductDetails/>} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/*" element={<Pagenotfound />} />
