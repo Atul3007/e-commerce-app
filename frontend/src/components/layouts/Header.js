@@ -5,11 +5,13 @@ import { useAuth } from "../../context/Auth";
 import toast from "react-hot-toast";
 import SearchProduct from "../form/SearchProduct";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/Cart";
+import { Badge } from "antd";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const categories = useCategory();
-
+  const [cart] = useCart();
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
@@ -48,23 +50,26 @@ const Header = () => {
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
-                  to="/catrgories"                 
+                  to="/catrgories"
                   data-bs-toggle="dropdown"
                 >
                   Category
                 </Link>
                 <ul className="dropdown-menu">
-                <li>
-                     <Link className="dropdown-item" to={`/categories`}>
-                       All Catetgory
-                     </Link>
-                   </li>
-                  {categories.map((c)=>(
-                     <li>
-                     <Link className="dropdown-item" to={`/category/${c.slug}`}>
-                       {c.name}
-                     </Link>
-                   </li>
+                  <li>
+                    <Link className="dropdown-item" to={`/categories`}>
+                      All Catetgory
+                    </Link>
+                  </li>
+                  {categories.map((c) => (
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        to={`/category/${c.slug}`}
+                      >
+                        {c.name}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </li>
@@ -119,9 +124,11 @@ const Header = () => {
                 </>
               )}{" "}
               <li className="nav-item">
-                <NavLink to="/Cart" className="nav-link">
-                  Cart(0)
-                </NavLink>
+                <Badge count={cart?.length} showZero >
+                  <NavLink to="/Cart" className="nav-link" >
+                  Cart
+                  </NavLink>
+                </Badge>
               </li>
             </ul>
           </div>

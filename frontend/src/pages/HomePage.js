@@ -8,7 +8,7 @@ import { price } from "../components/Price";
 import { useCart } from "../context/Cart";
 
 const HomePage = () => {
-  const [cart,setCart]=useCart();
+  const [cart, setCart] = useCart();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -170,41 +170,46 @@ const HomePage = () => {
           >
             <div className="card-grid">
               {products?.map((p) => (
-                  <div className="card" style={{ width: "20rem" }}>
-                    <img
-                      src={`http://localhost:8000/api/product/product-photo/${p._id}`}
-                      className="card-img-top"
-                      style={{
-                        width: "270px",
-                        height: "270px",
-                        marginLeft: "20px",
-                        marginTop: "20px",
-                      }}
-                      alt="product_photo"
-                    />
-                    <div className="card-body" style={{ marginLeft: "50px" }}>
-                      <h5 className="card-title">Title : {p.name}</h5>
-                      <h6 className="card-text">
-                        Description : {p.description.substring(0, 30)}
-                      </h6>
-                      <p className="card-text">Price : {p.price}</p>
-                      <div className="card-body">
-                        <button className="btn btn-primary ms-1" onClick={()=>{setCart([...cart,p])}}>
-                          Add Cart{" "}
-                        </button>
-                        <button
-                          className="btn btn-secondary ms-1"
-                          onClick={() => {
-                              navigate(`/product/${p._id}`)
-                          }
-                          }
-                        >
-                          Details{" "}
-                        </button>
-                      </div>
+                <div className="card" style={{ width: "20rem" }}>
+                  <img
+                    src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                    className="card-img-top"
+                    style={{
+                      width: "270px",
+                      height: "270px",
+                      marginLeft: "20px",
+                      marginTop: "20px",
+                    }}
+                    alt="product_photo"
+                  />
+                  <div className="card-body" style={{ marginLeft: "50px" }}>
+                    <h5 className="card-title">Title : {p.name}</h5>
+                    <h6 className="card-text">
+                      Description : {p.description.substring(0, 30)}
+                    </h6>
+                    <p className="card-text">Price : {p.price}</p>
+                    <div className="card-body">
+                      <button
+                        className="btn btn-primary ms-1"
+                        onClick={() => {
+                          setCart([...cart, p]);
+                          toast.success("Item added to cart");
+                          console.log(cart)
+                        }}
+                      >
+                        Add Cart{" "}
+                      </button>
+                      <button
+                        className="btn btn-secondary ms-1"
+                        onClick={() => {
+                          navigate(`/product/${p._id}`);
+                        }}
+                      >
+                        Details{" "}
+                      </button>
                     </div>
                   </div>
-                
+                </div>
               ))}
             </div>
           </div>
