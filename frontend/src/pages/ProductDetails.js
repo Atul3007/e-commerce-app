@@ -47,11 +47,12 @@ const navigate=useNavigate();
                   src={`http://localhost:8000/api/product/product-photo/${product._id}`}
                   className="card-img-top"
                   style={{
-                    width: "100%",
+                    width: "60%",
                     height: "auto",
                     border: "1px solid #ddd",
                     borderRadius: "5px",
                     marginBottom: "20px",
+                    marginLeft:"120px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                   }}
                   alt="product_photo"
@@ -77,7 +78,8 @@ const navigate=useNavigate();
               </div>
             </div>
             <div className="row" style={{ width: "100%", marginTop: "20px", display: "flex", justifyContent: "center" }}>
-              <h1 style={{ fontSize: "1.5rem", marginBottom: "20px" }}>Similar Products</h1>
+              <h1 style={{ fontSize: "1.5rem", marginBottom: "20px",textAlign:"center" }}>Similar Products</h1>
+              {relativedata.length==0 && <p style={{textAlign:"center",marginBottom:"50px"}}>No product found</p>}
               {relativedata?.map((p) => (
                 <div
                   className="card"
