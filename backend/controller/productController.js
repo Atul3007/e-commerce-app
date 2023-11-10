@@ -1,4 +1,5 @@
 const { productModel } = require("../models/productModel");
+const { categoryModel } = require("../models/categoryModel");
 const { default: slugify } = require("slugify");
 const fs = require("fs");
 
@@ -284,7 +285,27 @@ const relatedProduct=async(req,res)=>{
   }
 }
 
+const categoryProduct=async(req,res)=>{
+  try {
+    const slug=req.params.slug;
+    const category=await categoryModel.findOne({slug});
+    const product=await productModel.find({category}).populate("category");
+    res.status(200).send({
+      success:true,
+      product
+    })
+    //console.log(category);
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting category products",
+    });
+  }
+}
+
 module.exports = {
+  categoryProduct,
   relatedProduct,
   searchProduct,
   productPerPage,

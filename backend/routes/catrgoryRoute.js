@@ -25,6 +25,7 @@ categoryrouter.get("/all",getCategory)
 
 categoryrouter.delete("/delete-category/:id",deleteCategory)
 
+
 module.exports = {
   categoryrouter,
 };
