@@ -5,8 +5,10 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { price } from "../components/Price";
+import { useCart } from "../context/Cart";
 
 const HomePage = () => {
+  const [cart,setCart]=useCart();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -187,7 +189,7 @@ const HomePage = () => {
                       </h6>
                       <p className="card-text">Price : {p.price}</p>
                       <div className="card-body">
-                        <button className="btn btn-primary ms-1">
+                        <button className="btn btn-primary ms-1" onClick={()=>{setCart([...cart,p])}}>
                           Add Cart{" "}
                         </button>
                         <button

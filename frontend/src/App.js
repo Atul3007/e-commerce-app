@@ -25,10 +25,13 @@ import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
+import { CartProvider } from "./context/Cart";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
     <>
+    <CartProvider>
       <AuthProvider>
         <SearchProvider>
         <BrowserRouter>
@@ -55,10 +58,12 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/*" element={<Pagenotfound />} />
             <Route path="/searchproducts" element={<Search/>}/>
+            <Route path="/cart" element={<Cart/>}/>
           </Routes>
         </BrowserRouter>
         </SearchProvider>
       </AuthProvider>
+      </CartProvider>
     </>
   );
 };
