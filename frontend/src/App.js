@@ -23,6 +23,8 @@ import Product from "./pages/admin/Product";
 import UpdateProducts from "./pages/admin/UpdateProducts";
 import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
+import Categories from "./pages/Categories";
+import CategoryProduct from "./pages/CategoryProduct";
 
 const App = () => {
   return (
@@ -46,7 +48,9 @@ const App = () => {
               <Route path="admin/product" element={<Product/>}></Route>
             </Route>
             <Route path="/" element={<HomePage />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/product/:pid" element={<ProductDetails/>} />
+            <Route path="/category/:slug" element={<CategoryProduct/>} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/*" element={<Pagenotfound />} />
