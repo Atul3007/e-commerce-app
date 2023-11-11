@@ -13,6 +13,7 @@ const Profile = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
@@ -24,12 +25,18 @@ const Profile = () => {
           password,
           role: "user"
         };
-    
       } catch (error) {
         toast.error("Error in registration");
       }
     };
   
+  useEffect(()=>{
+    const {name,address,email,phone}=auth.user;
+    setName(name);
+    setAddress(address);
+    setEmail(email);
+    setPhone(phone);
+  },[auth?.user])
 
   return (
     <Layout >
@@ -63,6 +70,7 @@ const Profile = () => {
               aria-describedby="emailHelp"
               placeholder="Email"
               required
+              disabled
             />
           </div>
           <div className="mb-3">
@@ -83,7 +91,7 @@ const Profile = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="form-control"
               id="exampleInputPassword1"
-              placeholder="Password"
+              placeholder="Updated Password"
               required
             />
           </div>
