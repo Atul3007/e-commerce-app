@@ -1,5 +1,5 @@
 const express=require("express");
-const {registerController, loginController, forgotpassController} =require("../controller/registerController");
+const {registerController, loginController, forgotpassController, updateProfile} =require("../controller/registerController");
 const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 
 
@@ -10,6 +10,9 @@ router.post("/login",loginController)
 
 //forgot password
 router.post("/forgotpass",forgotpassController)
+
+//update profile
+router.put("/update-profile",updateProfile)
 
 //protected user route
 router.get("/user-auth",requireSignin,(req,res)=>{

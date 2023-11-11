@@ -12,12 +12,14 @@ const Profile = () => {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [id,setId] = useState("");
 
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
         const obj = {
+          id,
           name,
           address,
           email,
@@ -25,13 +27,21 @@ const Profile = () => {
           password,
           role: "user"
         };
+        const {data}=await axios.put("http://localhost:8000/api/update-profile",obj)
+        //console.log(data.newProfile)
+        setAuth({...auth,user:data.newProfile});
+        let ls=JSON.parse(localStorage.getItem("auth"));
+        ls.user=auth.user;
+        localStorage.setItem("auth",JSON.stringify(ls));
+        toast.success(data.message)
       } catch (error) {
-        toast.error("Error in registration");
+        toast.error("Error in updating profile");
       }
     };
   
   useEffect(()=>{
-    const {name,address,email,phone}=auth.user;
+    const {name,address,email,phone,_id}=auth.user;
+    setId(_id)
     setName(name);
     setAddress(address);
     setEmail(email);
