@@ -1,12 +1,65 @@
-import React from 'react'
-import Layout from '../components/layouts/Layout'
+import React from "react";
+import Layout from "../components/layouts/Layout";
+import { useAuth } from "../context/Auth";
+import { useCart } from "../context/Cart";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const [auth, setAuth] = useAuth();
+  const [cart, setCart] = useCart();
+  const navigate = useNavigate();
   return (
     <Layout>
-    <div>Cart</div>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <h1 className="text-center bg-light p-2">
+              {auth?.user?.name==undefined?"Welcome":`Welcome ${auth?.user?.name} !!!`}
+            </h1>
+            <h4 className="text-center">
+              {cart.length > 1
+                ? `You have ${cart.length} item in your cart ${
+                    auth?.token ? " " : "Please login to checkout"
+                  }`
+                : "Please login to checkout"}
+            </h4>
+          </div>
+          <div className="row">
+            <div className="col-md-9">
+             { cart?.map((c)=>(
+                <div className="row" style={{ boxShadow:"0 4px 8px rgba(0, 0, 0, 0.1)"}}>
+                   <div className="col-md-4 flex-row">
+                   <img
+                    src={`http://localhost:8000/api/product/product-photo/${c._id}`}
+                    className="card-img-top"
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      margin:"20px",
+                      boxShadow:"0 4px 8px rgba(0, 0, 0, 0.1)"
+                    }}
+                    alt="product_photo"
+                  />
+                   </div>
+                   <div className="col-md-6" style={{marginTop:"30px"}} >
+                   <h5 className="card-title">Title : {c.name}</h5>
+                    <h6 className="card-text"style={{marginTop:"20px"}}>
+                      Description : {c.description.substring(0, 30)}
+                    </h6>
+                    <p className="card-text">Price : {c.price}</p>
+                   </div>
+                </div>
+              ))
+             }
+            </div>
+            <div className="col-md-3">
+              checkout
+            </div>
+          </div>
+        </div>
+      </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
