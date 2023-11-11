@@ -8,6 +8,18 @@ const Cart = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
   const navigate = useNavigate();
+
+  const RemoveCart=async(id)=>{
+    try {
+      let myCart=[...cart];
+      let new_cart=myCart.filter((p)=>p._id!==id);
+      setCart(new_cart);
+      localStorage.setItem("cart",JSON.stringify(new_cart));
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Layout>
       <div className="container">
@@ -25,7 +37,7 @@ const Cart = () => {
             </h4>
           </div>
           <div className="row">
-            <div className="col-md-9">
+            <div className="col-md-7">
              { cart?.map((c)=>(
                 <div className="row" style={{ boxShadow:"0 4px 8px rgba(0, 0, 0, 0.1)"}}>
                    <div className="col-md-4 flex-row">
@@ -41,19 +53,24 @@ const Cart = () => {
                     alt="product_photo"
                   />
                    </div>
-                   <div className="col-md-6" style={{marginTop:"30px"}} >
+                   <div className="col-md-6" style={{margin:"20px"}} >
                    <h5 className="card-title">Title : {c.name}</h5>
                     <h6 className="card-text"style={{marginTop:"20px"}}>
                       Description : {c.description.substring(0, 30)}
                     </h6>
                     <p className="card-text">Price : {c.price}</p>
+                    <button className="btn btn-danger" onClick={()=>{RemoveCart(c._id)}}>Remove</button>
                    </div>
                 </div>
               ))
              }
             </div>
-            <div className="col-md-3">
-              checkout
+            <div className="col-md-4 text-center" style={{boxShadow:"0 4px 8px rgba(0, 0, 0, 0.1)"}}>
+              <h4>Chart Summary</h4>
+              <hr />
+              <h5>Total | CheckOut | Payment </h5>
+              <hr />
+              <h4>Total : </h4>
             </div>
           </div>
         </div>
