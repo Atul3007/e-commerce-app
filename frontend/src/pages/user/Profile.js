@@ -14,6 +14,12 @@ const Profile = () => {
     const [password, setPassword] = useState("");
     const [id,setId] = useState("");
 
+    const config = {
+      headers: {
+        Authorization: auth?.token,
+        "Content-Type": "application/json",
+      },
+    };
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -27,7 +33,7 @@ const Profile = () => {
           password,
           role: "user"
         };
-        const {data}=await axios.put("http://localhost:8000/api/update-profile",obj)
+        const {data}=await axios.put("http://localhost:8000/api/update-profile",obj,config)
         //console.log(data.newProfile)
         setAuth({...auth,user:data.newProfile});
         let ls=JSON.parse(localStorage.getItem("auth"));

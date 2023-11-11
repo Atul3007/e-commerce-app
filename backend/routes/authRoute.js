@@ -12,7 +12,7 @@ router.post("/login",loginController)
 router.post("/forgotpass",forgotpassController)
 
 //update profile
-router.put("/update-profile",updateProfile)
+router.put("/update-profile",requireSignin,updateProfile)
 
 //protected user route
 router.get("/user-auth",requireSignin,(req,res)=>{
