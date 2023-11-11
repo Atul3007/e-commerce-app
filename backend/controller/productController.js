@@ -1,5 +1,6 @@
 const { productModel } = require("../models/productModel");
 const { categoryModel } = require("../models/categoryModel");
+const {orderModel} = require("../models/OrderModel");
 const { default: slugify } = require("slugify");
 const fs = require("fs");
 
@@ -11,7 +12,6 @@ var gateway = new braintree.BraintreeGateway({
   publicKey: process.env.BRAINTREE_PUBLICKEY,
   privateKey:process.env.BRAINTREE_PRIVATEKEY,
 });
-
 
 const createProduct = async (req, res) => {
   try {
@@ -330,7 +330,30 @@ const token=async(req,res)=>{
 
 const payment=async(req,res)=>{
   try {
-    const nonceFromTheClient = req.body.payment_method_nonce;
+    const{cart,nonce}=req.body;
+    let total=0;
+    cart.map((c)=>(total+=c.price));
+    //const nonceFromTheClient = req.body.payment_method_nonce;
+    gateway.transaction.sale({
+      amount: total,
+      paymentMethodNonce: nonce,
+      options: {
+        submitForSettlement: true
+      }
+    }, (error, result) => {
+      if(result){
+        res.status(200).send({
+         success:true,
+         result
+        })
+      }else{
+        res.status(400).send({
+          success: false,
+          error: error.message,
+          message: "Error in payment",
+      });
+      }
+    });
   } catch (error) {
     res.status(400).send({
       success: false,
