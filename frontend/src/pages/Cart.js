@@ -9,7 +9,7 @@ import axios from "axios";
 const Cart = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-  const [clienttoken,setClenttoken] = useState("");
+  const [clienttoken,setClentToken] = useState("");
   const [loading,setLoading] = useState(false);
   const [instance,setInstance] = useState("");
   
@@ -43,10 +43,15 @@ const Cart = () => {
   const getClienttoken=async()=>{
     try {
       const {data}=await axios.get("http://localhost:8000/api/product/brain-tree/token");
-      setClenttoken(data.clienttoken);
+     //  console.log(data)
+      setClentToken(data);
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handlePayment=async()=>{
+   console.log({instance})
   }
 
   useEffect(()=>{
@@ -155,7 +160,13 @@ const Cart = () => {
                  </div>
                 </div>
               )
-              }
+              } <div className="mt-2">
+                  <DropIn
+            options={{ authorization: clienttoken, paypal:{flow:'vault'} }}
+            onInstance={(instance) => (setInstance(instance))}
+          />
+          <button className="btn btn-success" onClick={handlePayment}>Make Payment</button>
+              </div>
             </div>
           </div>
         </div>
