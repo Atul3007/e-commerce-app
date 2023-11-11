@@ -342,10 +342,11 @@ const payment=async(req,res)=>{
       }
     }, (error, result) => {
       if(result){
-        res.status(200).send({
-         success:true,
-         result
-        })
+        const order =  new orderModel({
+          products:cart,
+          payment:result,
+          buyer:req.user._id          
+        }).save();
       }else{
         res.status(400).send({
           success: false,
@@ -353,6 +354,9 @@ const payment=async(req,res)=>{
           message: "Error in payment",
       });
       }
+      res.status(200).send({
+       success:true     
+      })
     });
   } catch (error) {
     res.status(400).send({

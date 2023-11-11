@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layouts/Layout";
 import { useAuth } from "../context/Auth";
 import { useCart } from "../context/Cart";
 import { useNavigate } from "react-router-dom";
+import DropIn from "braintree-web-drop-in-react";
+import axios from "axios";
 
 const Cart = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
+  const [clienttoken,setClenttoken] = useState("");
+  const [loading,setLoading] = useState(false);
+  const [instance,setInstance] = useState("");
+  
   const navigate = useNavigate();
 
   const RemoveCart = async (id) => {
@@ -32,6 +38,20 @@ const Cart = () => {
       console.log(error);
     }
   };
+
+
+  const getClienttoken=async()=>{
+    try {
+      const {data}=await axios.get("http://localhost:8000/api/product/brain-tree/token");
+      setClenttoken(data.clienttoken);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    getClienttoken();
+  },[auth?.token])
 
   return (
     <Layout>
