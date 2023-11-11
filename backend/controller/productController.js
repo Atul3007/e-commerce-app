@@ -3,6 +3,16 @@ const { categoryModel } = require("../models/categoryModel");
 const { default: slugify } = require("slugify");
 const fs = require("fs");
 
+var braintree = require("braintree");
+
+var gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANTID,
+  publicKey: process.env.BRAINTREE_PUBLICKEY,
+  privateKey:process.env.BRAINTREE_PRIVATEKEY,
+});
+
+
 const createProduct = async (req, res) => {
   try {
     const { name, slug, description, price, category, shipping, quantity } =
@@ -304,7 +314,35 @@ const categoryProduct=async(req,res)=>{
   }
 }
 
+const token=async(req,res)=>{
+  try {
+    gateway.clientToken.generate({}, (err, response) => {
+      res.send(response.clientToken);
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting token for brain tree",
+  });
+}
+}
+
+const payment=async(req,res)=>{
+  try {
+    const nonceFromTheClient = req.body.payment_method_nonce;
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in payment",
+  });
+}
+}
+
 module.exports = {
+  payment,
+  token,
   categoryProduct,
   relatedProduct,
   searchProduct,

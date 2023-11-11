@@ -6,6 +6,7 @@
     "@testing-library/user-event": "^14.5.1",
     "antd": "^5.10.2",
     "axios": "^1.5.1",
+    "braintree-web-drop-in-react": "^1.2.1",
     "gitignore": "^0.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
