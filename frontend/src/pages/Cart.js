@@ -20,6 +20,19 @@ const Cart = () => {
     }
   }
 
+  const totalPrice=()=>{
+    try {
+      let sum=0;
+      console.log(cart)
+      cart?.map((p)=>{
+       sum+=p.price;
+      })
+      return(sum);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Layout>
       <div className="container">
@@ -70,7 +83,7 @@ const Cart = () => {
               <hr />
               <h5>Total | CheckOut | Payment </h5>
               <hr />
-              <h4>Total : </h4>
+              <h4>Total : {totalPrice()}</h4>
             </div>
           </div>
         </div>
