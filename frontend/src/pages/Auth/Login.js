@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from "../../context/Auth";
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth,setAuth]=useAuth()
