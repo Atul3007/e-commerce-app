@@ -46,9 +46,9 @@ const Cart = () => {
             <h4 className="text-center">
               {cart.length > 1
                 ? `You have ${cart.length} item in your cart ${
-                    auth?.token ? " " : "Please login to checkout"
+                    auth?.token ? " " : " Please login to checkout!!! "
                   }`
-                : "Please login to checkout"}
+                : ""}
             </h4>
           </div>
           <div className="row">
@@ -91,7 +91,10 @@ const Cart = () => {
             </div>
             <div
               className="col-md-4 text-center"
-              style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",margin:"40px" }}
+              style={{
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                margin: "40px",
+              }}
             >
               <h4>Chart Summary</h4>
               <hr />
@@ -99,13 +102,40 @@ const Cart = () => {
               <hr />
               <h4>Total : {totalPrice()}</h4>
               <hr />
-              {auth?.user?.address && (
+              {auth?.user?.address ? (
                 <div className="mb-3">
                   <h4>Current Address</h4>
                   <h5>{auth?.user?.address}</h5>
-                  <button className="btn btn-outline-danger">Updade</button>
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={() => navigate("/dashboard/user/profile")}
+                  >
+                    Updade Address
+                  </button>
                 </div>
-              )}
+              ):(
+                <div className="mb-3">
+                 <div className="mb-3">
+                  {
+                    auth?.token ? (
+                      <button
+                      className="btn btn-outline-danger"
+                      onClick={() => navigate("/dashboard/user/profile")}
+                    >
+                      Updade Address
+                    </button>
+                    ) : 
+                    <button
+                    className="btn btn-outline-success"
+                    onClick={() => navigate("/login",{state:"/cart"})}
+                  >
+                    Login to purchase items!!!
+                  </button>
+                  }
+                 </div>
+                </div>
+              )
+              }
             </div>
           </div>
         </div>
