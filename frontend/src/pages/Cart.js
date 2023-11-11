@@ -98,7 +98,7 @@ const Cart = () => {
             >
               <h4>Chart Summary</h4>
               <hr />
-              <h5>Total | CheckOut | Payment </h5>
+              <h5 style={{color:"green"}}>Total | CheckOut | Payment </h5>
               <hr />
               <h4>Total : {totalPrice()}</h4>
               <hr />
