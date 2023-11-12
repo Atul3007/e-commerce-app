@@ -9,10 +9,10 @@ import axios from "axios";
 const Cart = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-  const [clienttoken,setClentToken] = useState("");
-  const [loading,setLoading] = useState(false);
-  const [instance,setInstance] = useState("");
-  
+  const [clienttoken, setClentToken] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [instance, setInstance] = useState("");
+
   const navigate = useNavigate();
 
   const RemoveCart = async (id) => {
@@ -29,7 +29,7 @@ const Cart = () => {
   const totalPrice = () => {
     try {
       let sum = 0;
-      console.log(cart);
+    //  console.log(cart);
       cart?.map((p) => {
         sum += p.price;
       });
@@ -39,24 +39,29 @@ const Cart = () => {
     }
   };
 
-
-  const getClienttoken=async()=>{
+  const getClienttoken = async () => {
     try {
-      const {data}=await axios.get("http://localhost:8000/api/product/brain-tree/token");
-     //  console.log(data)
+      const { data } = await axios.get(
+        "http://localhost:8000/api/product/brain-tree/token"
+      );
+      //  console.log(data)
       setClentToken(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePayment = async () => {
+    try {
+      
     } catch (error) {
       console.log(error)
     }
-  }
+  };
 
-  const handlePayment=async()=>{
-   console.log({instance})
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     getClienttoken();
-  },[auth?.token])
+  }, [auth?.token]);
 
   return (
     <Layout>
@@ -123,7 +128,7 @@ const Cart = () => {
             >
               <h4>Chart Summary</h4>
               <hr />
-              <h5 style={{color:"green"}}>Total | CheckOut | Payment </h5>
+              <h5 style={{ color: "green" }}>Total | CheckOut | Payment </h5>
               <hr />
               <h4>Total : {totalPrice()}</h4>
               <hr />
@@ -138,34 +143,44 @@ const Cart = () => {
                     Updade Address
                   </button>
                 </div>
-              ):(
+              ) : (
                 <div className="mb-3">
-                 <div className="mb-3">
-                  {
-                    auth?.token ? (
+                  <div className="mb-3">
+                    {auth?.token ? (
                       <button
-                      className="btn btn-outline-danger"
-                      onClick={() => navigate("/dashboard/user/profile")}
-                    >
-                      Updade Address
-                    </button>
-                    ) : 
-                    <button
-                    className="btn btn-outline-success"
-                    onClick={() => navigate("/login",{state:"/cart"})}
-                  >
-                    Login to purchase items!!!
-                  </button>
-                  }
-                 </div>
+                        className="btn btn-outline-danger"
+                        onClick={() => navigate("/dashboard/user/profile")}
+                      >
+                        Updade Address
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-outline-success"
+                        onClick={() => navigate("/login", { state: "/cart" })}
+                      >
+                        Login to purchase items!!!
+                      </button>
+                    )}
+                  </div>
                 </div>
-              )
-              } <div className="mt-2">
-                  <DropIn
-            options={{ authorization: clienttoken, paypal:{flow:'vault'} }}
-            onInstance={(instance) => (setInstance(instance))}
-          />
-          <button className="btn btn-success" onClick={handlePayment}>Make Payment</button>
+              )}{" "}
+              <div className="mt-2">
+                <DropIn
+                  options={{
+                    authorization: clienttoken,
+                    paypal: { flow: "vault" },
+                  }}
+                  onInstance={(instance) => setInstance(instance)}
+                />
+                <button
+                  className="btn btn-success"
+                  onClick={handlePayment}
+                  disabled={
+                    !clienttoken || !loading || !instance
+                  }
+                >
+                  Make Payment
+                </button>
               </div>
             </div>
           </div>
