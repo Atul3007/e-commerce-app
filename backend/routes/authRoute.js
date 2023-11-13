@@ -6,6 +6,7 @@ const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const router=express.Router();
 
 router.post("/register",registerController)
+
 router.post("/login",loginController)
 
 //forgot password

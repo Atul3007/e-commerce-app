@@ -16,6 +16,7 @@ const {
   payment,
   cod,
   order,
+  allOrder,
 } = require("../controller/productController");
 const { requireSignin, checkRole } = require("../middlewares/atuhMiddleware");
 const productRouter = express.Router();
@@ -58,6 +59,8 @@ productRouter.post("/brain-tree/payment", requireSignin, payment);
 productRouter.post("/payment/cod", requireSignin, cod);
 
 productRouter.get("/your-order/:id", order);
+
+productRouter.get("/all-order/",requireSignin,checkRole ,allOrder);
 
 module.exports = {
   productRouter,

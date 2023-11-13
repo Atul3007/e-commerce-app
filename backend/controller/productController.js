@@ -295,7 +295,7 @@ const relatedProduct = async (req, res) => {
       error: error.message,
       message: "Error in getting related products",
     });
-  } 
+  }
 };
 
 const categoryProduct = async (req, res) => {
@@ -373,18 +373,18 @@ const payment = async (req, res) => {
 
 const cod = async (req, res) => {
   try {
-    const { cart,id } = req.body;
+    const { cart, id } = req.body;
     let total = 0;
     cart.map((c) => (total += c.price));
     const order = await new orderModel({
       products: cart,
-      payment: `cod = ${total}`, 
-      buyer:id
+      payment: `${total} cod`,
+      buyer: id,
     }).save();
-   // console.log({order });
+    // console.log({order });
     res.status(200).send({
-      success:true
-    })
+      success: true,
+    });
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -394,16 +394,19 @@ const cod = async (req, res) => {
   }
 };
 
-const order=async(req,res)=>{
-  const {id}=req.params
- // console.log(id)
+const order = async (req, res) => {
+  const { id } = req.params;
+  // console.log(id)
   try {
-    const orders=await orderModel.find({buyer:id}).populate("products","-photo").populate("buyer","name");
+    const orders = await orderModel
+      .find({ buyer: id })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
     res.status(200).send({
-      success:true,
-      orders
-   })
-   //console.log(orders)
+      success: true,
+      orders,
+    });
+    //console.log(orders)
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -411,10 +414,23 @@ const order=async(req,res)=>{
       message: "Error in getting order",
     });
   }
+};
+
+const allOrder=async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting all order",
+    });
+  }
 }
 
 module.exports = {
-  order, 
+  allOrder,
+  order,
   cod,
   payment,
   token,
