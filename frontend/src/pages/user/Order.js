@@ -40,22 +40,22 @@ const Order = () => {
                 <table className="table">
                   <thead>
                     <tr>
-                      <td scope="col">#</td>
-                      <td scope="col">Status</td>
-                      <td scope="col">Buyer</td>
-                      <td scope="col">Date</td>
-                      <td scope="col">Payment</td>
-                      <td scope="col">Quantity</td>
+                      <th scope="col">#</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Buyer</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Payment</th>
+                      <th scope="col">Quantity</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr key={index}>
-                      <th>{index + 1}</th>
-                      <th>{order.status}</th>
-                      <th>{order.buyer.name}</th>
-                      <th>{moment(order.createdAt).format('Do MMMM YYYY')}</th>
-                      <th>{order.payment}</th>
-                      <th>{order.products.length}</th>
+                      <td>{index + 1}</td>
+                      <td>{order.status}</td>
+                      <td>{order.buyer.name}</td>
+                      <td>{moment(order.createdAt).format('Do MMMM YYYY')}</td>
+                      <td>{order.payment}</td>
+                      <td>{order.products.length}</td>
                     </tr>
                   </tbody>
                 </table>
