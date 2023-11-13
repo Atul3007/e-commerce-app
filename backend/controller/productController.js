@@ -1,6 +1,6 @@
 const { productModel } = require("../models/productModel");
 const { categoryModel } = require("../models/categoryModel");
-const {orderModel} = require("../models/OrderModel");
+const { orderModel } = require("../models/OrderModel");
 const { default: slugify } = require("slugify");
 const fs = require("fs");
 
@@ -10,7 +10,7 @@ var gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
   merchantId: process.env.BRAINTREE_MERCHANTID,
   publicKey: process.env.BRAINTREE_PUBLICKEY,
-  privateKey:process.env.BRAINTREE_PRIVATEKEY,
+  privateKey: process.env.BRAINTREE_PRIVATEKEY,
 });
 
 const createProduct = async (req, res) => {
@@ -273,19 +273,22 @@ const searchProduct = async (req, res) => {
   }
 };
 
-
-const relatedProduct=async(req,res)=>{
+const relatedProduct = async (req, res) => {
   try {
-    const {pid,cid}=req.params;
+    const { pid, cid } = req.params;
     //console.log(pid,cid)
-    const products=await productModel.find({
-      category:cid,
-      _id:{$ne:pid}
-    }).select("-photo").limit(5).populate("category");
+    const products = await productModel
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(5)
+      .populate("category");
     res.status(200).send({
-      success:true,
-      products
-    })
+      success: true,
+      products,
+    });
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -293,17 +296,17 @@ const relatedProduct=async(req,res)=>{
       message: "Error in getting related products",
     });
   }
-}
+};
 
-const categoryProduct=async(req,res)=>{
+const categoryProduct = async (req, res) => {
   try {
-    const slug=req.params.slug;
-    const category=await categoryModel.findOne({slug});
-    const product=await productModel.find({category}).populate("category");
+    const slug = req.params.slug;
+    const category = await categoryModel.findOne({ slug });
+    const product = await productModel.find({ category }).populate("category");
     res.status(200).send({
-      success:true,
-      product
-    })
+      success: true,
+      product,
+    });
     //console.log(category);
   } catch (error) {
     res.status(400).send({
@@ -312,9 +315,9 @@ const categoryProduct=async(req,res)=>{
       message: "Error in getting category products",
     });
   }
-}
+};
 
-const token=async(req,res)=>{
+const token = async (req, res) => {
   try {
     gateway.clientToken.generate({}, (err, response) => {
       res.send(response.clientToken);
@@ -324,50 +327,74 @@ const token=async(req,res)=>{
       success: false,
       error: error.message,
       message: "Error in getting token for brain tree",
-  });
-}
-}
+    });
+  }
+};
 
-const payment=async(req,res)=>{
+const payment = async (req, res) => {
   try {
-    const{cart,nonce}=req.body;
-    let total=0;
-    cart.map((c)=>(total+=c.price));
+    const { cart, nonce } = req.body;
+    let total = 0;
+    cart.map((c) => (total += c.price));
+    //console.log(total)
     //const nonceFromTheClient = req.body.payment_method_nonce;
-    gateway.transaction.sale({
-      amount: total,
-      paymentMethodNonce: nonce,
-      options: {
-        submitForSettlement: true
-      }
-    }, (error, result) => {
-      if(result){
-        const order =  new orderModel({
-          products:cart,
-          payment:result,
-          buyer:req.user._id          
-        }).save();
-      }else{
-        res.status(400).send({
-          success: false,
-          error: error.message,
-          message: "Error in payment",
-      });
-      }
-      res.status(200).send({
-       success:true     
-      })
+    // gateway.transaction.sale({
+    //   amount: total,
+    //   paymentMethodNonce: nonce,
+    //   options: {
+    //     submitForSettlement: true
+    //   }
+    //}, (error, result) => {
+    //  if(result){
+    const order = new orderModel({
+      products: cart,
+      payment: result,
+      buyer: req.user.id,
+    }).save();
+    // }else{
+    //   res.status(400).send({
+    //     success: false,
+    //     error: error.message,
+    //     message: "Error in payment",
+    // });
+    // }
+    res.status(200).send({
+      success: true,
+      // })
     });
   } catch (error) {
     res.status(400).send({
       success: false,
       error: error.message,
       message: "Error in payment",
-  });
-}
-}
+    });
+  }
+};
+
+const cod = async (req, res) => {
+  try {
+    const { cart } = req.body;
+    let total = 0;
+    cart.map((c) => (total += c.price));
+    const order = await new orderModel({
+      products: cart,
+      payment: `cod = ${total}`,
+    }).save();
+   // console.log({order });
+    res.status(200).send({
+      success:true
+    })
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in cod payment",
+    });
+  }
+};
 
 module.exports = {
+  cod,
   payment,
   token,
   categoryProduct,

@@ -5,6 +5,7 @@ import { useCart } from "../context/Cart";
 import { useNavigate } from "react-router-dom";
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const [auth, setAuth] = useAuth();
@@ -14,6 +15,13 @@ const Cart = () => {
   const [instance, setInstance] = useState("");
 
   const navigate = useNavigate();
+
+  const config = {
+    headers: {
+      Authorization: auth?.token,
+      "Content-Type": "application/json",
+    },
+  };
 
   const RemoveCart = async (id) => {
     try {
@@ -29,7 +37,7 @@ const Cart = () => {
   const totalPrice = () => {
     try {
       let sum = 0;
-    //  console.log(cart);
+      //  console.log(cart);
       cart?.map((p) => {
         sum += p.price;
       });
@@ -53,9 +61,40 @@ const Cart = () => {
 
   const handlePayment = async () => {
     try {
-      
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      const { data } = await axios.post(
+        "http://localhost:8000/api/product/brain-tree/payment",
+        { cart },
+        config
+      );
+      setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/user/order");
+      toast.success(data.success);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const cashPayment = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        "http://localhost:8000/api/product/payment/cod",
+        { cart },
+        config
+      );
+      console.log(data)
+      setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/user/order");
+      toast.success(data.success);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -74,7 +113,7 @@ const Cart = () => {
                 : `Welcome ${auth?.user?.name} !!!`}
             </h1>
             <h4 className="text-center">
-              {cart.length > 1
+              {cart && cart.length > 1
                 ? `You have ${cart.length} item in your cart ${
                     auth?.token ? " " : " Please login to checkout!!! "
                   }`
@@ -165,22 +204,27 @@ const Cart = () => {
                 </div>
               )}{" "}
               <div className="mt-2">
-                <DropIn
-                  options={{
-                    authorization: clienttoken,
-                    paypal: { flow: "vault" },
-                  }}
-                  onInstance={(instance) => setInstance(instance)}
-                />
-                <button
-                  className="btn btn-success"
-                  onClick={handlePayment}
-                  disabled={
-                    !clienttoken || !loading || !instance
-                  }
-                >
-                  Make Payment
-                </button>
+                {!clienttoken || !cart?.length ? (
+                  " "
+                ) : (
+                  <>
+                    <button onClick={cashPayment}>Cash On delivery</button>
+                    <DropIn
+                      options={{
+                        authorization: clienttoken,
+                        paypal: { flow: "vault" },
+                      }}
+                      onInstance={(instance) => setInstance(instance)}
+                    />
+                    <button
+                      className="btn btn-success"
+                      onClick={handlePayment}
+                      disabled={!clienttoken || !instance}
+                    >
+                      {loading ? "Processing" : "Make Payment"}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
