@@ -20,8 +20,8 @@ const AdminOrder = () => {
   const allOrders=async()=>{
     try {
       const {data}=await axios.get("http://localhost:8000/api/product/all-order",config)
-      setOrders(data);
-      console.log(orders)
+      setOrders(data.orders);
+     // console.log(orders)
     } catch (error) {
       console.log(error)
     }
