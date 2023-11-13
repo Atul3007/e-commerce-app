@@ -423,6 +423,7 @@ const allOrder = async (req, res) => {
       .populate("products", "-photo")
       .populate("buyer", "name")
       .sort({ createAt: "-1" });
+
       res.status(200).send({
         success: true,
         orders
@@ -436,7 +437,27 @@ const allOrder = async (req, res) => {
   }
 };
 
+const updateStatus=async(req,res)=>{
+  try {
+    const {status}=req.body;
+    const {orderId}=req.params;
+    console.log({status,orderId})
+    const order = await orderModel.findByIdAndUpdate({_id:orderId},{status},{new:true});
+    res.status(200).send({
+        success: true,
+        message:"Status updated successfully"  
+      });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in updating order",
+    });
+  }}
+
+
 module.exports = {
+  updateStatus,
   allOrder,
   order,
   cod,
