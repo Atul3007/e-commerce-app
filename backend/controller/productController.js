@@ -416,9 +416,17 @@ const order = async (req, res) => {
   }
 };
 
-const allOrder=async(req,res)=>{
+const allOrder = async (req, res) => {
   try {
-    
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("buyer", "name")
+      .sort({ createAt: "-1" });
+      res.status(200).send({
+        success: true,
+        orders
+      });
   } catch (error) {
     res.status(400).send({
       success: false,
@@ -426,7 +434,7 @@ const allOrder=async(req,res)=>{
       message: "Error in getting all order",
     });
   }
-}
+};
 
 module.exports = {
   allOrder,
