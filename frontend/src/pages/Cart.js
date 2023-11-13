@@ -50,7 +50,7 @@ const Cart = () => {
   const getClienttoken = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/product/brain-tree/token"
+        "https://lucky-jade-yoke.cyclic.app/api/product/brain-tree/token"
       );
       //  console.log(data)
       setClentToken(data);
@@ -64,7 +64,7 @@ const Cart = () => {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
       const { data } = await axios.post(
-        "http://localhost:8000/api/product/brain-tree/payment",
+        "https://lucky-jade-yoke.cyclic.app/api/product/brain-tree/payment",
         { cart },
         config
       );
@@ -83,7 +83,7 @@ const Cart = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:8000/api/product/payment/cod",
+        "https://lucky-jade-yoke.cyclic.app/api/product/payment/cod",
         { cart,id:auth.user._id },
         config
       );
@@ -129,7 +129,7 @@ const Cart = () => {
                 >
                   <div className="col-md-4 flex-row">
                     <img
-                      src={`http://localhost:8000/api/product/product-photo/${c._id}`}
+                      src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${c._id}`}
                       className="card-img-top"
                       style={{
                         width: "150px",

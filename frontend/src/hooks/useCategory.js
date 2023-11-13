@@ -6,7 +6,7 @@ const useCategory = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/category/all");
+            const response = await axios.get("https://lucky-jade-yoke.cyclic.app/api/category/all");
             setCategory(response.data.data);
         } catch (error) {
             console.error("Error fetching categories:", error);

@@ -10,7 +10,7 @@ const Product = () => {
   const getProducts = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/product/get-product"
+        "https://lucky-jade-yoke.cyclic.app/api/product/get-product"
       );
       if (res && res.data && res.data.message) {
         setProducts(res.data.message);
@@ -42,7 +42,7 @@ const Product = () => {
                <Link to={`/dashboard/admin/update-product/${p._id}`} key={p._id} className="productLink"> 
                 <div className="card" style={{ width: "18rem" }} >
                   <img
-                    src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                    src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${p._id}`}
                     className="card-img-top"
                     style={{width:"200px",height:"200px",marginLeft:"50px",marginTop:"20px"}}
                     alt="product_photo"

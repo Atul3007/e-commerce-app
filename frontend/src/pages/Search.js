@@ -18,7 +18,7 @@ const Search = () => {
                 // <Link key={p._id} className="productLink">
                   <div className="card" style={{ width: "20rem" }}>
                     <img
-                      src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                      src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${p._id}`}
                       className="card-img-top"
                       style={{
                         width: "270px",

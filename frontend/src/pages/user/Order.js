@@ -12,7 +12,7 @@ const Order = () => {
   const getOrder = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/product/your-order/${auth?.user?._id}`
+        `https://lucky-jade-yoke.cyclic.app/api/product/your-order/${auth?.user?._id}`
       );
       setOrders(data.orders);
      console.log({ product:orders.products});
@@ -68,7 +68,7 @@ const Order = () => {
                     >
                       <div className="col-md-4 flex-row">
                         <img
-                          src={`http://localhost:8000/api/product/product-photo/${product._id}`}
+                          src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${product._id}`}
                           className="card-img-top"
                           style={{
                             width: "150px",

@@ -32,7 +32,7 @@ const AdminOrder = () => {
   const allOrders = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/product/all-order",
+        "https://lucky-jade-yoke.cyclic.app/api/product/all-order",
         config
       );
       setOrders(data.orders);
@@ -44,7 +44,7 @@ const AdminOrder = () => {
 
   const handleChange=async(status,id)=>{
     try {
-      const {data}=await axios.put(`http://localhost:8000/api/product/update-order/${id}`,{status},config)
+      const {data}=await axios.put(`https://lucky-jade-yoke.cyclic.app/api/product/update-order/${id}`,{status},config)
       allOrders();
       toast.success(data.message)
     } catch (error) {
@@ -113,7 +113,7 @@ const AdminOrder = () => {
                   >
                     <div className="col-md-4 flex-row">
                       <img
-                        src={`http://localhost:8000/api/product/product-photo/${product._id}`}
+                        src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${product._id}`}
                         className="card-img-top"
                         style={{
                           width: "150px",

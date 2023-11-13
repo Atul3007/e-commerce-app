@@ -33,7 +33,7 @@ const Profile = () => {
           password,
           role: "user"
         };
-        const {data}=await axios.put("http://localhost:8000/api/update-profile",obj,config)
+        const {data}=await axios.put("https://lucky-jade-yoke.cyclic.app/api/update-profile",obj,config)
         //console.log(data.newProfile)
         setAuth({...auth,user:data.newProfile});
         let ls=JSON.parse(localStorage.getItem("auth"));

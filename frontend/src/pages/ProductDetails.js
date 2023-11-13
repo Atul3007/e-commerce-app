@@ -14,7 +14,7 @@ const navigate=useNavigate();
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/product/get-single-product/${pid}`
+        `https://lucky-jade-yoke.cyclic.app/api/product/get-single-product/${pid}`
       );
       setProduct(data?.message);
       getRelatedProduct(data?.message?._id,data?.message?.category?._id);
@@ -26,7 +26,7 @@ const navigate=useNavigate();
 
   const getRelatedProduct=async(pid,cid)=>{
     try {
-      const {data}=await axios.get(`http://localhost:8000/api/product/related-product/${pid}/${cid}`);
+      const {data}=await axios.get(`https://lucky-jade-yoke.cyclic.app/api/product/related-product/${pid}/${cid}`);
       setRelativedata(data?.products);
     } catch (error) {
       console.log(error)
@@ -44,7 +44,7 @@ const navigate=useNavigate();
             <div className="row container" style={{ display: "flex", justifyContent: "center" }}>
               <div className="col-md-6">
                 <img
-                  src={`http://localhost:8000/api/product/product-photo/${product._id}`}
+                  src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${product._id}`}
                   className="card-img-top"
                   style={{
                     width: "60%",
@@ -94,7 +94,7 @@ const navigate=useNavigate();
                   key={p._id}
                 >
                   <img
-                    src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                    src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${p._id}`}
                     className="card-img-top"
                     style={{
                       width: "100%",

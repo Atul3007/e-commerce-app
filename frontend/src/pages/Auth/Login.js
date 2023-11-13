@@ -22,8 +22,8 @@ const Login = () => {
         email,
         password
       };
-      const res = await axios.post("http://localhost:8000/api/login", obj);
-     // console.log(res.data.message)
+      //console.log({obj})
+      const res = await axios.post("https://lucky-jade-yoke.cyclic.app/api/login", obj);
      setAuth({...auth,
              user:res.data.user,
              token:res.data.token})

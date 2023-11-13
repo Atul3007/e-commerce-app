@@ -20,7 +20,7 @@ const HomePage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/category/all"
+        "https://lucky-jade-yoke.cyclic.app/api/category/all"
       );
       setCategory(data.data);
       // console.log(category)
@@ -33,7 +33,7 @@ const HomePage = () => {
   const totalProduct = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/product/product-count"
+        "https://lucky-jade-yoke.cyclic.app/api/product/product-count"
       );
       setTotal(data?.count);
     } catch (error) {
@@ -50,7 +50,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `http://localhost:8000/api/product/product-list/${page}`
+        `https://lucky-jade-yoke.cyclic.app/api/product/product-list/${page}`
       );
       setLoading(false);
       // console.log(data.product)
@@ -69,7 +69,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `http://localhost:8000/api/product/product-list/${page}`
+        `https://lucky-jade-yoke.cyclic.app/api/product/product-list/${page}`
       );
       setLoading(false);
       setProducts([...products, ...data?.product]);
@@ -104,7 +104,7 @@ const HomePage = () => {
     try {
       if (radio || checked) {
         const { data } = await axios.post(
-          "http://localhost:8000/api/product/product-filter",
+          "https://lucky-jade-yoke.cyclic.app/api/product/product-filter",
           { radio, checked }
         );
         setProducts(data.product);
@@ -172,7 +172,7 @@ const HomePage = () => {
               {products?.map((p) => (
                 <div className="card" style={{ width: "20rem" }}>
                   <img
-                    src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                    src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${p._id}`}
                     className="card-img-top"
                     style={{
                       width: "270px",

@@ -32,7 +32,7 @@ const CreateProduct = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/category/all"
+        "https://lucky-jade-yoke.cyclic.app/api/category/all"
       );
       setCategories(data.data);
     } catch (error) {
@@ -59,7 +59,7 @@ const CreateProduct = () => {
       productData.append("shipping",shipping)
 
       const response = await axios.post(
-        "http://localhost:8000/api/product/create-product",
+        "https://lucky-jade-yoke.cyclic.app/api/product/create-product",
         productData,
         config
       );

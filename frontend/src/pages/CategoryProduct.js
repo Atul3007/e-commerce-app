@@ -13,7 +13,7 @@ const CategoryProduct = () => {
     const navigate=useNavigate();
     const getProduct=async ()=>{
         try {
-            const {data}=await axios.get(`http://localhost:8000/api/product/category-products/${slug}`);
+            const {data}=await axios.get(`https://lucky-jade-yoke.cyclic.app/api/product/category-products/${slug}`);
             setCategory(data?.product[0]?.category?.name)
             setProduct(data?.product)
         } catch (error) {
@@ -32,7 +32,7 @@ const CategoryProduct = () => {
     {product?.map((p) => (
                   <div className="card" style={{ width: "20rem" }}>
                     <img
-                      src={`http://localhost:8000/api/product/product-photo/${p._id}`}
+                      src={`https://lucky-jade-yoke.cyclic.app/api/product/product-photo/${p._id}`}
                       className="card-img-top"
                       style={{
                         width: "270px",
@@ -51,7 +51,7 @@ const CategoryProduct = () => {
                       <div className="card-body">
                         <button className="btn btn-primary ms-1" onClick={() => {
                           setCart([...cart, p]);
-                          localStorage.setItem("cart",JSON.stingify([...cart,p]));
+                          localStorage.setItem("cart",JSON.stringify([...cart,p]));
                           toast.success("Item added to cart");
                         }}>
                           Add Cart{" "}
