@@ -84,10 +84,10 @@ const Cart = () => {
       setLoading(true);
       const { data } = await axios.post(
         "http://localhost:8000/api/product/payment/cod",
-        { cart },
+        { cart,id:auth.user._id },
         config
       );
-      console.log(data)
+     // console.log(data)
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);

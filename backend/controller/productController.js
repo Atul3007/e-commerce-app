@@ -295,7 +295,7 @@ const relatedProduct = async (req, res) => {
       error: error.message,
       message: "Error in getting related products",
     });
-  }
+  } 
 };
 
 const categoryProduct = async (req, res) => {
@@ -373,12 +373,13 @@ const payment = async (req, res) => {
 
 const cod = async (req, res) => {
   try {
-    const { cart } = req.body;
+    const { cart,id } = req.body;
     let total = 0;
     cart.map((c) => (total += c.price));
     const order = await new orderModel({
       products: cart,
-      payment: `cod = ${total}`,
+      payment: `cod = ${total}`, 
+      buyer:id
     }).save();
    // console.log({order });
     res.status(200).send({
@@ -393,7 +394,27 @@ const cod = async (req, res) => {
   }
 };
 
+const order=async(req,res)=>{
+  const {id}=req.params
+ // console.log(id)
+  try {
+    const orders=await orderModel.find({buyer:id}).populate("products","-photo").populate("buyer","name");
+    res.status(200).send({
+      success:true,
+      orders
+   })
+   //console.log(orders)
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      error: error.message,
+      message: "Error in getting order",
+    });
+  }
+}
+
 module.exports = {
+  order, 
   cod,
   payment,
   token,

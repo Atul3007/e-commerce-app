@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserMenu from '../../components/layouts/UserMenu'
 import Layout from '../../components/layouts/Layout'
+import axios from 'axios'
+import { useAuth } from '../../context/Auth'
 
 const Order = () => {
+  const [auth,setAuth]=useAuth();
+  const [orders,setOrders]=userState();
+
+  const getOrder=async()=>{
+    try {
+      const {data}=await axios.get(`http://localhost:8000/api/product/your-order/${auth?.user?._id}`);
+      setOrders(data)
+      console.log(orders)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    if(auth?.token) getOrder();
+  },[])
+
   return (
     <Layout >
     <div className='container-field'>
