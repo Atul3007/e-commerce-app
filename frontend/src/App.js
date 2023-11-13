@@ -27,6 +27,7 @@ import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
 import { CartProvider } from "./context/Cart";
 import Cart from "./pages/Cart";
+import AdminOrder from "./pages/admin/AdminOrder";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
               <Route path="admin/update-product/:slug" element={<UpdateProducts/>}></Route>
               <Route path="admin/create-category" element={<CreateCategory/>}></Route>
               <Route path="admin/user" element={<User/>}></Route>
+              <Route path="admin/order" element={<AdminOrder/>}></Route>
               <Route path="admin/product" element={<Product/>}></Route>
             </Route>
             <Route path="/" element={<HomePage />} />
