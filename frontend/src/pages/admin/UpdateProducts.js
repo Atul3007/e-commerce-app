@@ -37,6 +37,7 @@ const UpdateProducts = () => {
       const res = await axios.get(
         `http://localhost:8000/api/product/get-single-product/${slug}`
       );
+      console.log({res})
       setName(res.data.message.name);
       setId(res.data.message._id);
       setDescription(res.data.message.description);
